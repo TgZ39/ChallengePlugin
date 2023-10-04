@@ -4,5 +4,7 @@ main: tgz39.challengeplugin.Main
 api-version: '1.20'
 authors: [TgZ39, ImReady]
 commands:
-  clearweather:
-    description: Clears the weather.
+  settings:
+    description: Open settings for Challenges.
+  timer:
+    description: Controls the Timer.

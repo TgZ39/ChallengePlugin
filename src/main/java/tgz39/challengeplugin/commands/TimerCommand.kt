@@ -1,12 +1,12 @@
 package tgz39.challengeplugin.commands
 
-import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
+import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 
-class ClearWeather : CommandExecutor {
+class TimerCommand : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>?): Boolean {
 
         if (sender !is Player) {
@@ -15,14 +15,24 @@ class ClearWeather : CommandExecutor {
         }
         val player: Player = sender
 
-        if (!player.hasPermission("challengeplugin.commands.clearweather")) {
+        if (!player.hasPermission("challengeplugin.commands.timer")) {
             player.sendMessage("Du darfst diesen Command nicht ausführen.")
             return false
         }
 
-        Bukkit.getWorld("world")?.clearWeatherDuration = Int.MAX_VALUE
-        player.sendMessage("Das Wetter ist jetzt gut. :)")
-
         return false
+    }
+
+    override fun onTabComplete(sender: CommandSender, command: Command, label: String, args: Array<out String>?): MutableList<String> {
+
+        var list: MutableList<String> = mutableListOf()
+
+        if (args?.size == 1) {
+            list.add("resume")
+            list.add("stop")
+            list.add("reset")
+        }
+
+        return list
     }
 }
