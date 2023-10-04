@@ -4,6 +4,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
+import org.bukkit.GameMode
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
@@ -44,6 +45,9 @@ class LavaChallenge : DefaultChallenge{
                 }
 
                 for (player in Bukkit.getServer().onlinePlayers) {
+
+                    if (player.gameMode != GameMode.SURVIVAL) continue
+
                     val pos = player.location
                     pos.y += 10
 
