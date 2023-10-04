@@ -1,8 +1,10 @@
 package tgz39.challengeplugin.utils
 
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.ComponentBuilder
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
+import net.md_5.bungee.api.chat.BaseComponent
 import org.bukkit.Bukkit
 import org.bukkit.entity.HumanEntity
 import org.bukkit.entity.Player
@@ -44,10 +46,24 @@ class SettingsGUI : Listener{
         if (item?.displayName() == lavaChallenge.guiItem().displayName()) {
             if (!lavaChallenge.isActive) {
                 lavaChallenge.isActive = true
-                Bukkit.broadcast(Component.text("ChallengesPlugin:").decorate(TextDecoration.BOLD).color(NamedTextColor.GOLD).append(Component.text("LavaChallenge has been enabled.")))
+                Bukkit.broadcast(Component
+                    .text("ChallengesPlugin: ")
+                    .color(NamedTextColor.GREEN)
+                    .decoration(TextDecoration.BOLD, true)
+                    .append(Component
+                        .text("LavaChallenge has been enabled.")
+                        .color(NamedTextColor.WHITE)
+                        .decoration(TextDecoration.BOLD, false)))
             } else {
                 lavaChallenge.isActive = false
-                Bukkit.broadcast(Component.text("ChallengesPlugin:").decorate(TextDecoration.BOLD).color(NamedTextColor.GOLD).append(Component.text("LavaChallenge has been disabled.")))
+                Bukkit.broadcast(Component
+                    .text("ChallengesPlugin: ")
+                    .color(NamedTextColor.RED)
+                    .decoration(TextDecoration.BOLD, true)
+                    .append(Component
+                        .text("LavaChallenge has been disabled.")
+                        .color(NamedTextColor.WHITE)
+                        .decoration(TextDecoration.BOLD, false)))
             }
         }
 
@@ -61,5 +77,11 @@ class SettingsGUI : Listener{
         if (event.view.title() != Component.text("Settings")) return
 
         event.isCancelled = true
+    }
+
+    fun sendAllPlayers(text: Component) {
+        for (player in Bukkit.getServer().onlinePlayers) {
+            player
+        }
     }
 }
