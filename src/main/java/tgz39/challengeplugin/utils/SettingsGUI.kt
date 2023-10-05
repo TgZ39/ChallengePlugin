@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryDragEvent
+import tgz39.challengeplugin.Main
 import tgz39.challengeplugin.challenges.lavaChallenge
 
 class SettingsGUI : Listener{
@@ -17,7 +18,7 @@ class SettingsGUI : Listener{
     private var inventory = Bukkit.createInventory(null, 9, Component.text("Settings"))
 
     init {
-        updateInventory()
+        loadconfig()
     }
 
     private fun updateInventory() {
@@ -33,6 +34,12 @@ class SettingsGUI : Listener{
         player.openInventory(inventory)
     }
 
+    private fun loadconfig() {
+        val plugin = Main.instance
+
+        lavaChallenge.isActive = plugin.config.getBoolean("challenges.lava-challenge")
+    }
+
     @EventHandler
     fun onItemClick(event: InventoryClickEvent) {
 
@@ -40,6 +47,7 @@ class SettingsGUI : Listener{
 
         val player = event.whoClicked
         val item = event.currentItem
+        val config = Main.instance.config
 
         if (item?.displayName() == lavaChallenge.guiItem().displayName()) {
             if (!lavaChallenge.isActive) {
@@ -52,6 +60,7 @@ class SettingsGUI : Listener{
                         .text("LavaChallenge has been enabled.")
                         .color(NamedTextColor.WHITE)
                         .decoration(TextDecoration.BOLD, false)))
+                config.set("challenges.lava-challenge", true)
             } else {
                 lavaChallenge.isActive = false
                 Bukkit.broadcast(Component
@@ -62,7 +71,9 @@ class SettingsGUI : Listener{
                         .text("LavaChallenge has been disabled.")
                         .color(NamedTextColor.WHITE)
                         .decoration(TextDecoration.BOLD, false)))
+                config.set("challenges.lava-challenge", false)
             }
+            Main.instance.saveConfig()
         }
 
         event.isCancelled = true
