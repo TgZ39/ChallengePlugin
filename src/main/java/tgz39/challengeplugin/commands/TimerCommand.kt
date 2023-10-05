@@ -1,8 +1,6 @@
 package tgz39.challengeplugin.commands
 
 import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.format.NamedTextColor
-import org.bukkit.ChatColor
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
