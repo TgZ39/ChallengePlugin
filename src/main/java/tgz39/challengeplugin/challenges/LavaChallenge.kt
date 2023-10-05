@@ -13,6 +13,8 @@ import tgz39.challengeplugin.utils.DefaultChallenge
 
 class LavaChallenge : DefaultChallenge{
 
+    val timer = Main.timer
+
     init {
         run()
     }
@@ -28,6 +30,7 @@ class LavaChallenge : DefaultChallenge{
 
         if (isActive) {
             itemMeta.lore(mutableListOf(Component.text("Enabled").color(NamedTextColor.GREEN)))
+
         } else {
             itemMeta.lore(mutableListOf(Component.text("Disabled").color(NamedTextColor.RED)))
         }
@@ -40,9 +43,8 @@ class LavaChallenge : DefaultChallenge{
     fun run() {
         object : BukkitRunnable() {
             override fun run() {
-                if (!lavaChallenge.isActive) {
-                    return
-                }
+                if (!lavaChallenge.isActive) return
+                if (!timer.isActive) return
 
                 for (player in Bukkit.getServer().onlinePlayers) {
 
