@@ -76,10 +76,4 @@ class SettingsGUI : Listener{
 
         event.isCancelled = true
     }
-
-    fun sendAllPlayers(text: Component) {
-        for (player in Bukkit.getServer().onlinePlayers) {
-            player
-        }
-    }
 }
