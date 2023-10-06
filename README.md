@@ -17,5 +17,16 @@ Discord: https://discord.gg/Vmvn5hxaUp
    ```
 2. Open the created `ChallengePlugin` folder in [IntelliJ](https://www.jetbrains.com/de-de/idea/)
 3. Download Java 17 (Zulu Recommended) if IntelliJ tells you to.
-4. Edit and test your code.
-5. Create a [pull request](https://github.com/TgZ39/ChallengePlugin/pulls)
+4. Change the `outputDirectory` in the `pom.xml` to your preferred folder.
+   ```xml
+   <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-jar-plugin</artifactId>
+      <version>3.3.0</version>
+      <configuration>
+         <outputDirectory>YOUR_OUTPUT_DIRECTORY_HERE</outputDirectory>
+      </configuration>
+   </plugin>
+   ```
+5. Edit and test your code.
+6. Create a [pull request](https://github.com/TgZ39/ChallengePlugin/pulls)
