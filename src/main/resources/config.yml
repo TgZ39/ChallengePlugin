@@ -1,5 +1,9 @@
 challenges:
   lava-challenge: false
+  random-mob-challenge:
+    active: false
+    spawn-time-lower-bound: 10
+    spawn-time-upper-bound: 20
 timer:
   stop-timer-on-death: true
   time: 0

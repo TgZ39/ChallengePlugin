@@ -12,8 +12,9 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryDragEvent
 import tgz39.challengeplugin.Main
 import tgz39.challengeplugin.challenges.LavaChallenge
+import tgz39.challengeplugin.challenges.RandomMobChallenge
 
-object SettingsGUI : Listener{
+object SettingsGUI : Listener {
 
     private var inventory = Bukkit.createInventory(null, 9, Component.text("Settings"))
 
@@ -23,12 +24,14 @@ object SettingsGUI : Listener{
 
     private fun updateInventory() {
         inventory.setItem(0, LavaChallenge.guiItem())
+        inventory.setItem(1, RandomMobChallenge.guiItem())
     }
 
     fun openInvetory(player: Player) {
         updateInventory()
         player.openInventory(inventory)
     }
+
     fun openInvetory(player: HumanEntity) {
         updateInventory()
         player.openInventory(inventory)
@@ -38,6 +41,7 @@ object SettingsGUI : Listener{
         val plugin = Main.instance
 
         LavaChallenge.isActive = plugin.config.getBoolean("challenges.lava-challenge")
+        RandomMobChallenge.isActive = plugin.config.getBoolean("challenges.random-mob-challenge.active")
     }
 
     @EventHandler
@@ -52,26 +56,69 @@ object SettingsGUI : Listener{
         if (item?.displayName() == LavaChallenge.guiItem().displayName()) {
             if (!LavaChallenge.isActive) {
                 LavaChallenge.isActive = true
-                Bukkit.broadcast(Component
-                    .text("ChallengesPlugin: ")
-                    .color(NamedTextColor.GREEN)
-                    .decoration(TextDecoration.BOLD, true)
-                    .append(Component
-                        .text("LavaChallenge has been enabled.")
-                        .color(NamedTextColor.WHITE)
-                        .decoration(TextDecoration.BOLD, false)))
-                config.set("challenges.lava-challenge", true)
+                Bukkit.broadcast(
+                    Component
+                        .text("ChallengePlugin: ")
+                        .color(NamedTextColor.GREEN)
+                        .decoration(TextDecoration.BOLD, true)
+                        .append(
+                            Component
+                                .text("Lava Challenge has been enabled.")
+                                .color(NamedTextColor.WHITE)
+                                .decoration(TextDecoration.BOLD, false)
+                        )
+                )
+                config.set("challenges.random-mob-challenge.active", true)
             } else {
                 LavaChallenge.isActive = false
-                Bukkit.broadcast(Component
-                    .text("ChallengesPlugin: ")
-                    .color(NamedTextColor.RED)
-                    .decoration(TextDecoration.BOLD, true)
-                    .append(Component
-                        .text("LavaChallenge has been disabled.")
-                        .color(NamedTextColor.WHITE)
-                        .decoration(TextDecoration.BOLD, false)))
-                config.set("challenges.lava-challenge", false)
+                Bukkit.broadcast(
+                    Component
+                        .text("ChallengePlugin: ")
+                        .color(NamedTextColor.RED)
+                        .decoration(TextDecoration.BOLD, true)
+                        .append(
+                            Component
+                                .text("Lava Challenge has been disabled.")
+                                .color(NamedTextColor.WHITE)
+                                .decoration(TextDecoration.BOLD, false)
+                        )
+                )
+                config.set("challenges.random-mob-challenge.active", false)
+            }
+            Main.instance.saveConfig()
+        }
+
+        if (item?.displayName() == RandomMobChallenge.guiItem().displayName()) {
+            if (!RandomMobChallenge.isActive) {
+                RandomMobChallenge.isActive = true
+                Bukkit.broadcast(
+                    Component
+                        .text("ChallengePlugin: ")
+                        .color(NamedTextColor.GREEN)
+                        .decoration(TextDecoration.BOLD, true)
+                        .append(
+                            Component
+                                .text("Random Mob Challenge has been enabled.")
+                                .color(NamedTextColor.WHITE)
+                                .decoration(TextDecoration.BOLD, false)
+                        )
+                )
+                config.set("challenges.random-mob-challenge.active", true)
+            } else {
+                RandomMobChallenge.isActive = false
+                Bukkit.broadcast(
+                    Component
+                        .text("ChallengePlugin: ")
+                        .color(NamedTextColor.RED)
+                        .decoration(TextDecoration.BOLD, true)
+                        .append(
+                            Component
+                                .text("Random Mob Challenge has been disabled.")
+                                .color(NamedTextColor.WHITE)
+                                .decoration(TextDecoration.BOLD, false)
+                        )
+                )
+                config.set("challenges.random-mob-challenge.active", false)
             }
             Main.instance.saveConfig()
         }
