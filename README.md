@@ -1,6 +1,15 @@
 # ChallengePlugin
 Minecraft Plugin for 1.20+ with Challenges
 
+## Features
+- Random Mob Challenge
+- Random Effect Challenge
+- Lava Challenge
+- Setting UI
+- Timer
+- highly customizable configuration 
+
+
 ## Social
 Discord: https://discord.gg/Vmvn5hxaUp
 
