@@ -40,7 +40,7 @@ object SettingsGUI : Listener {
     private fun loadconfig() {
         val plugin = Main.instance
 
-        LavaChallenge.isActive = plugin.config.getBoolean("challenges.lava-challenge")
+        LavaChallenge.isActive = plugin.config.getBoolean("challenges.lava-challenge.active")
         RandomMobChallenge.isActive = plugin.config.getBoolean("challenges.random-mob-challenge.active")
     }
 
@@ -68,7 +68,7 @@ object SettingsGUI : Listener {
                                 .decoration(TextDecoration.BOLD, false)
                         )
                 )
-                config.set("challenges.random-mob-challenge.active", true)
+                config.set("challenges.lava-challenge.active", true)
             } else {
                 LavaChallenge.isActive = false
                 Bukkit.broadcast(
@@ -83,7 +83,7 @@ object SettingsGUI : Listener {
                                 .decoration(TextDecoration.BOLD, false)
                         )
                 )
-                config.set("challenges.random-mob-challenge.active", false)
+                config.set("challenges.lava-challenge.active", false)
             }
             Main.instance.saveConfig()
         }

@@ -1,5 +1,6 @@
 challenges:
-  lava-challenge: false
+  lava-challenge:
+    active: false
   random-mob-challenge:
     active: false
     spawn-time-lower-bound: 60
