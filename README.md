@@ -28,5 +28,6 @@ Discord: https://discord.gg/Vmvn5hxaUp
       </configuration>
    </plugin>
    ```
-5. Edit and test your code.
-6. Create a [pull request](https://github.com/TgZ39/ChallengePlugin/pulls)
+5. Edit and test the code.
+   - To build the plugin open the Maven tab and click `ChallengePlugin -> Lifecycle -> package`.
+7. Create a [pull request](https://github.com/TgZ39/ChallengePlugin/pulls)
