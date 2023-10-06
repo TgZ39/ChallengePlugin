@@ -6,6 +6,7 @@ import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.EntityType
+import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
 import tgz39.challengeplugin.Main
@@ -87,9 +88,8 @@ object RandomMobChallenge : DefaultChallenge {
 
     override fun guiItem(): ItemStack {
         val item = ItemStack(Material.SPAWNER, 1)
-        item.itemFlags.clear()
         val itemMeta = item.itemMeta
-        itemMeta.lore()?.clear()
+        itemMeta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS)
 
         itemMeta.displayName(Component.text("Random Mob Challenge").decorate(TextDecoration.BOLD))
 
