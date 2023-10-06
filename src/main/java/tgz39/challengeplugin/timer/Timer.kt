@@ -9,7 +9,7 @@ import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 import tgz39.challengeplugin.Main
 
-class Timer {
+object Timer {
 
     //val timer = Main.timer
 
@@ -58,7 +58,7 @@ class Timer {
         }
     }
 
-    fun run() {
+    private fun run() {
         object: BukkitRunnable() {
             override fun run() {
 

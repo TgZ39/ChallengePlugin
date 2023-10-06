@@ -9,11 +9,10 @@ import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
 import tgz39.challengeplugin.Main
+import tgz39.challengeplugin.timer.Timer
 import tgz39.challengeplugin.utils.DefaultChallenge
 
-class LavaChallenge : DefaultChallenge{
-
-    val timer = Main.timer
+object LavaChallenge : DefaultChallenge{
 
     init {
         run()
@@ -40,11 +39,11 @@ class LavaChallenge : DefaultChallenge{
         return item
     }
 
-    fun run() {
+    private fun run() {
         object : BukkitRunnable() {
             override fun run() {
-                if (!lavaChallenge.isActive) return
-                if (!timer.isActive) return
+                if (!isActive) return
+                if (!Timer.isActive) return
 
                 for (player in Bukkit.getServer().onlinePlayers) {
 
@@ -60,5 +59,3 @@ class LavaChallenge : DefaultChallenge{
 
     }
 }
-
-val lavaChallenge = LavaChallenge()

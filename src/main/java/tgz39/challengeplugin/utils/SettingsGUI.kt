@@ -11,9 +11,9 @@ import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryDragEvent
 import tgz39.challengeplugin.Main
-import tgz39.challengeplugin.challenges.lavaChallenge
+import tgz39.challengeplugin.challenges.LavaChallenge
 
-class SettingsGUI : Listener{
+object SettingsGUI : Listener{
 
     private var inventory = Bukkit.createInventory(null, 9, Component.text("Settings"))
 
@@ -22,7 +22,7 @@ class SettingsGUI : Listener{
     }
 
     private fun updateInventory() {
-        inventory.setItem(0, lavaChallenge.guiItem())
+        inventory.setItem(0, LavaChallenge.guiItem())
     }
 
     fun openInvetory(player: Player) {
@@ -37,7 +37,7 @@ class SettingsGUI : Listener{
     private fun loadconfig() {
         val plugin = Main.instance
 
-        lavaChallenge.isActive = plugin.config.getBoolean("challenges.lava-challenge")
+        LavaChallenge.isActive = plugin.config.getBoolean("challenges.lava-challenge")
     }
 
     @EventHandler
@@ -49,9 +49,9 @@ class SettingsGUI : Listener{
         val item = event.currentItem
         val config = Main.instance.config
 
-        if (item?.displayName() == lavaChallenge.guiItem().displayName()) {
-            if (!lavaChallenge.isActive) {
-                lavaChallenge.isActive = true
+        if (item?.displayName() == LavaChallenge.guiItem().displayName()) {
+            if (!LavaChallenge.isActive) {
+                LavaChallenge.isActive = true
                 Bukkit.broadcast(Component
                     .text("ChallengesPlugin: ")
                     .color(NamedTextColor.GREEN)
@@ -62,7 +62,7 @@ class SettingsGUI : Listener{
                         .decoration(TextDecoration.BOLD, false)))
                 config.set("challenges.lava-challenge", true)
             } else {
-                lavaChallenge.isActive = false
+                LavaChallenge.isActive = false
                 Bukkit.broadcast(Component
                     .text("ChallengesPlugin: ")
                     .color(NamedTextColor.RED)
