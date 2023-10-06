@@ -31,6 +31,7 @@ class Main : JavaPlugin() {
 
         Timer.sendActionBar()
     }
+
     override fun onDisable() {
         // Plugin shutdown logic
         Timer.isActive = false
