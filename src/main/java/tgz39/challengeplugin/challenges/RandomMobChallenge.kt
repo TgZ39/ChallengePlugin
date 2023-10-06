@@ -80,26 +80,40 @@ object RandomMobChallenge : DefaultChallenge {
     }
 
     fun nextDelay(): Int {
-        val lowerBound = Main.instance.config.getInt("challenges.random-mob-challenge.spawn-time-lower-bound")
-        val upperBound = Main.instance.config.getInt("challenges.random-mob-challenge.spawn-time-upper-bound")
+        val lowerBound = Main.instance.config.getInt("challenges.random-mob-challenge.run-time-lower-bound")
+        val upperBound = Main.instance.config.getInt("challenges.random-mob-challenge.run-time-upper-bound")
 
         return Random().nextInt(lowerBound, upperBound) * 20
     }
 
     override fun guiItem(): ItemStack {
+
+        val config = Main.instance.config
         val item = ItemStack(Material.SPAWNER, 1)
         val itemMeta = item.itemMeta
+        val lore = itemMeta.lore() ?: ArrayList()
+
         itemMeta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS)
 
         itemMeta.displayName(Component.text("Random Mob Challenge").decorate(TextDecoration.BOLD))
 
         if (isActive) {
-            itemMeta.lore(mutableListOf(Component.text("Enabled").color(NamedTextColor.GREEN)))
+            lore.add(Component.text("Enabled").color(NamedTextColor.GREEN))
 
         } else {
-            itemMeta.lore(mutableListOf(Component.text("Disabled").color(NamedTextColor.RED)))
+            lore.add(Component.text("Disabled").color(NamedTextColor.RED))
         }
 
+        lore.add(Component.text(""))
+        lore.add(
+            Component.text(
+                "Delay: " + config.get("challenges.random-mob-challenge.run-time-lower-bound") + "s - " + config.get(
+                    "challenges.random-mob-challenge.run-time-upper-bound"
+                ) + "s"
+            ).color(NamedTextColor.WHITE)
+        )
+
+        itemMeta.lore(lore)
         item.setItemMeta(itemMeta)
 
         return item
@@ -118,7 +132,6 @@ object RandomMobChallenge : DefaultChallenge {
 
                         val pos = player.location
                         player.world.spawnEntity(pos, mob)
-                        Main.instance.logger.info("spawing " + mob.name)
                     }
 
                     time = 0
