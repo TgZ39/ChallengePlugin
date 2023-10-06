@@ -1,6 +1,5 @@
 package tgz39.challengeplugin
 
-import org.bukkit.entity.EntityType
 import org.bukkit.plugin.java.JavaPlugin
 import tgz39.challengeplugin.commands.SettingsCommand
 import tgz39.challengeplugin.commands.TimerCommand
