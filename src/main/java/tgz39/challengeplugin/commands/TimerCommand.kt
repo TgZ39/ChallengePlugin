@@ -5,6 +5,8 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
+import tgz39.challengeplugin.challenges.RandomEffectChallenge
+import tgz39.challengeplugin.challenges.RandomMobChallenge
 import tgz39.challengeplugin.timer.Timer
 
 class TimerCommand : CommandExecutor, TabCompleter {
@@ -35,6 +37,8 @@ class TimerCommand : CommandExecutor, TabCompleter {
                 Timer.isActive = false
                 Timer.time = 0
                 Timer.ticks = 0
+                RandomMobChallenge.time = 0
+                RandomEffectChallenge.time = 0
                 sender.sendMessage(Component.text("Timer has been reset."))
             }
 

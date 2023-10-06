@@ -12,6 +12,7 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryDragEvent
 import tgz39.challengeplugin.Main
 import tgz39.challengeplugin.challenges.LavaChallenge
+import tgz39.challengeplugin.challenges.RandomEffectChallenge
 import tgz39.challengeplugin.challenges.RandomMobChallenge
 
 object SettingsGUI : Listener {
@@ -25,6 +26,7 @@ object SettingsGUI : Listener {
     private fun updateInventory() {
         inventory.setItem(0, LavaChallenge.guiItem())
         inventory.setItem(1, RandomMobChallenge.guiItem())
+        inventory.setItem(2, RandomEffectChallenge.guiItem())
     }
 
     fun openInvetory(player: Player) {
@@ -42,6 +44,7 @@ object SettingsGUI : Listener {
 
         LavaChallenge.isActive = plugin.config.getBoolean("challenges.lava-challenge.active")
         RandomMobChallenge.isActive = plugin.config.getBoolean("challenges.random-mob-challenge.active")
+        RandomEffectChallenge.isActive = plugin.config.getBoolean("challenges.random-effect-challenge.active")
     }
 
     @EventHandler
@@ -119,6 +122,41 @@ object SettingsGUI : Listener {
                         )
                 )
                 config.set("challenges.random-mob-challenge.active", false)
+            }
+            Main.instance.saveConfig()
+        }
+
+        if (item?.displayName() == RandomEffectChallenge.guiItem().displayName()) {
+            if (!RandomEffectChallenge.isActive) {
+                RandomEffectChallenge.isActive = true
+                Bukkit.broadcast(
+                    Component
+                        .text("ChallengePlugin: ")
+                        .color(NamedTextColor.GREEN)
+                        .decoration(TextDecoration.BOLD, true)
+                        .append(
+                            Component
+                                .text("Random Effect Challenge has been enabled.")
+                                .color(NamedTextColor.WHITE)
+                                .decoration(TextDecoration.BOLD, false)
+                        )
+                )
+                config.set("challenges.random-effect-challenge.active", true)
+            } else {
+                RandomEffectChallenge.isActive = false
+                Bukkit.broadcast(
+                    Component
+                        .text("ChallengePlugin: ")
+                        .color(NamedTextColor.RED)
+                        .decoration(TextDecoration.BOLD, true)
+                        .append(
+                            Component
+                                .text("Random Effect Challenge has been disabled.")
+                                .color(NamedTextColor.WHITE)
+                                .decoration(TextDecoration.BOLD, false)
+                        )
+                )
+                config.set("challenges.random-effect-challenge.active", false)
             }
             Main.instance.saveConfig()
         }
