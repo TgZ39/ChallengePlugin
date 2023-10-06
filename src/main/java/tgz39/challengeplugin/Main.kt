@@ -20,8 +20,6 @@ class Main : JavaPlugin() {
     override fun onEnable() {
 
         saveDefaultConfig()
-        logger.info(EntityType.entries.filter { it.isAlive; it.isSpawnable }.toString())
-        logger.info(EntityType.entries.toString())
         logger.info("Loading Plugin...")
 
         getCommand("settings")?.setExecutor(SettingsCommand())
