@@ -12,7 +12,7 @@ import tgz39.challengeplugin.Main
 import tgz39.challengeplugin.timer.Timer
 import tgz39.challengeplugin.utils.DefaultChallenge
 
-object LavaChallenge : DefaultChallenge{
+object LavaChallenge : DefaultChallenge {
 
     init {
         run()
@@ -25,7 +25,7 @@ object LavaChallenge : DefaultChallenge{
         val item = ItemStack(Material.LAVA_BUCKET, 1)
         val itemMeta = item.itemMeta
 
-        itemMeta.displayName(Component.text("LavaChallenge").decorate(TextDecoration.BOLD))
+        itemMeta.displayName(Component.text("Lava Challenge").decorate(TextDecoration.BOLD))
 
         if (isActive) {
             itemMeta.lore(mutableListOf(Component.text("Enabled").color(NamedTextColor.GREEN)))

@@ -23,7 +23,7 @@ class Main : JavaPlugin() {
 
         getCommand("settings")?.setExecutor(SettingsCommand())
         getCommand("timer")?.setExecutor(TimerCommand())
-        getCommand("timer")?.setTabCompleter(TimerCommand())
+        getCommand("timer")?.tabCompleter = TimerCommand()
 
         server.pluginManager.registerEvents(SettingsGUI, this)
         server.pluginManager.registerEvents(DeathLisenter(), this)

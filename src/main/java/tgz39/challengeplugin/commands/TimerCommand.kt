@@ -9,7 +9,7 @@ import tgz39.challengeplugin.timer.Timer
 
 class TimerCommand : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>?): Boolean {
-        
+
 
         if (!sender.hasPermission("challengeplugin.commands.timer")) {
             sender.sendMessage("You are not allowed to run this command.")
@@ -56,7 +56,12 @@ class TimerCommand : CommandExecutor, TabCompleter {
         return false
     }
 
-    override fun onTabComplete(sender: CommandSender, command: Command, label: String, args: Array<out String>?): MutableList<String> {
+    override fun onTabComplete(
+        sender: CommandSender,
+        command: Command,
+        label: String,
+        args: Array<out String>?
+    ): MutableList<String> {
 
         val list: MutableList<String> = mutableListOf()
 

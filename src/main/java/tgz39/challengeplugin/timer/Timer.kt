@@ -23,16 +23,17 @@ object Timer {
     }
 
     private fun initTime() {
-        if (Main.instance.config.getBoolean("timer.save-time-between-sessions")) time = Main.instance.config.getInt("timer.time")
+        if (Main.instance.config.getBoolean("timer.save-time-between-sessions")) time =
+            Main.instance.config.getInt("timer.time")
     }
 
     private fun getFormated(): String {
 
         val seconds = time % 60
-        val minutes = (time/60) % 60
-        val hours = time/3600
+        val minutes = (time / 60) % 60
+        val hours = time / 3600
 
-        return "${hours.toString()}:${minutes.toString()}:${seconds.toString()}"
+        return "$hours:$minutes:$seconds"
     }
 
     fun sendActionBar() {
@@ -50,16 +51,19 @@ object Timer {
                         .text(getFormated())
                         .decoration(TextDecoration.BOLD, true)
                         .color(NamedTextColor.GOLD)
-                        .append(Component
-                            .text(" (paused)")
-                            .decoration(TextDecoration.BOLD, false)
-                            .decoration(TextDecoration.ITALIC, true)))
+                        .append(
+                            Component
+                                .text(" (paused)")
+                                .decoration(TextDecoration.BOLD, false)
+                                .decoration(TextDecoration.ITALIC, true)
+                        )
+                )
             }
         }
     }
 
     private fun run() {
-        object: BukkitRunnable() {
+        object : BukkitRunnable() {
             override fun run() {
 
                 sendActionBar()
