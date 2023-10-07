@@ -1,6 +1,7 @@
 challenges:
   lava-challenge:
     active: false
+    lava-spawn-height: 10
   random-mob-challenge:
     active: false
     min-delay: 60

@@ -22,8 +22,10 @@ object LavaChallenge : DefaultChallenge {
 
     override fun guiItem(): ItemStack {
 
+        val config = Main.instance.config
         val item = ItemStack(Material.LAVA_BUCKET, 1)
         val itemMeta = item.itemMeta
+        val lore = itemMeta.lore() ?: ArrayList()
 
         itemMeta.displayName(
             Component.text("Lava Challenge").decorate(TextDecoration.BOLD).decoration(TextDecoration.ITALIC, false)
@@ -31,20 +33,17 @@ object LavaChallenge : DefaultChallenge {
         )
 
         if (isActive) {
-            itemMeta.lore(
-                mutableListOf(
-                    Component.text("Enabled").color(NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false)
-                )
-            )
+            lore.add(Component.text("Enabled").color(NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false))
 
         } else {
-            itemMeta.lore(
-                mutableListOf(
-                    Component.text("Disabled").color(NamedTextColor.RED).decoration(TextDecoration.ITALIC, false)
-                )
-            )
+            lore.add(Component.text("Disabled").color(NamedTextColor.RED).decoration(TextDecoration.ITALIC, false))
+
         }
 
+        lore.add(Component.text(""))
+        lore.add(Component.text("Height: " + config.get("challenges.lava-challenge.lava-spawn-height")).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE))
+
+        itemMeta.lore(lore)
         item.setItemMeta(itemMeta)
 
         return item
@@ -61,7 +60,7 @@ object LavaChallenge : DefaultChallenge {
                     if (player.gameMode != GameMode.SURVIVAL) continue
 
                     val pos = player.location
-                    pos.y += 10
+                    pos.y += Main.instance.config.getInt("challenges.lava-challenge.lava-spawn-height")
 
                     pos.block.type = Material.LAVA
                 }
