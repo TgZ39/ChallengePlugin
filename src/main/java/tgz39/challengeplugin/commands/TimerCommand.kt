@@ -8,6 +8,7 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 import tgz39.challengeplugin.Main
+import tgz39.challengeplugin.challenges.HealthChallenge
 import tgz39.challengeplugin.challenges.RandomEffectChallenge
 import tgz39.challengeplugin.challenges.RandomMobChallenge
 import tgz39.challengeplugin.timer.Timer
@@ -28,6 +29,7 @@ class TimerCommand : CommandExecutor, TabCompleter {
         when (args?.get(0)?.lowercase()) {
             "resume" -> {
                 Timer.isActive = true
+                HealthChallenge.setHealth(Main.instance.config.getInt("challenges.health-challenge.health").toDouble())
                 sender.sendMessage(
                     Component.text("Timer: ").decoration(TextDecoration.BOLD, true).color(NamedTextColor.GOLD).append(
                         Component.text("Enabled").decoration(TextDecoration.BOLD, false).color(NamedTextColor.WHITE)

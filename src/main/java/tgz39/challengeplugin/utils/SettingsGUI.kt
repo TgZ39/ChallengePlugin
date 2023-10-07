@@ -11,6 +11,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryDragEvent
 import tgz39.challengeplugin.Main
+import tgz39.challengeplugin.challenges.HealthChallenge
 import tgz39.challengeplugin.challenges.LavaChallenge
 import tgz39.challengeplugin.challenges.RandomEffectChallenge
 import tgz39.challengeplugin.challenges.RandomMobChallenge
@@ -27,6 +28,7 @@ object SettingsGUI : Listener {
         inventory.setItem(0, LavaChallenge.guiItem())
         inventory.setItem(1, RandomMobChallenge.guiItem())
         inventory.setItem(2, RandomEffectChallenge.guiItem())
+        inventory.setItem(3, HealthChallenge.guiItem())
     }
 
     fun openInvetory(player: Player) {
@@ -45,10 +47,26 @@ object SettingsGUI : Listener {
         LavaChallenge.isActive = plugin.config.getBoolean("challenges.lava-challenge.active")
         RandomMobChallenge.isActive = plugin.config.getBoolean("challenges.random-mob-challenge.active")
         RandomEffectChallenge.isActive = plugin.config.getBoolean("challenges.random-effect-challenge.active")
+        HealthChallenge.isActive = plugin.config.getBoolean("challenges.health-challenge.active")
     }
 
     @EventHandler
     fun onItemClick(event: InventoryClickEvent) {
+
+        fun sendChallengeMessage(text: String, color: NamedTextColor) {
+            Bukkit.broadcast(
+                Component
+                    .text("Challenges: ")
+                    .color(NamedTextColor.GOLD)
+                    .decoration(TextDecoration.BOLD, true)
+                    .append(
+                        Component
+                            .text(text)
+                            .color(color)
+                            .decoration(TextDecoration.BOLD, false)
+                    )
+            )
+        }
 
         if (event.view.title() != Component.text("Settings")) return
 
@@ -59,33 +77,11 @@ object SettingsGUI : Listener {
         if (item?.displayName() == LavaChallenge.guiItem().displayName()) {
             if (!LavaChallenge.isActive) {
                 LavaChallenge.isActive = true
-                Bukkit.broadcast(
-                    Component
-                        .text("Challenges: ")
-                        .color(NamedTextColor.GOLD)
-                        .decoration(TextDecoration.BOLD, true)
-                        .append(
-                            Component
-                                .text("Lava Challenge has been enabled.")
-                                .color(NamedTextColor.GREEN)
-                                .decoration(TextDecoration.BOLD, false)
-                        )
-                )
+                sendChallengeMessage("Lava Challenge has been enabled.", NamedTextColor.GREEN)
                 config.set("challenges.lava-challenge.active", true)
             } else {
                 LavaChallenge.isActive = false
-                Bukkit.broadcast(
-                    Component
-                        .text("Challenges: ")
-                        .color(NamedTextColor.GOLD)
-                        .decoration(TextDecoration.BOLD, true)
-                        .append(
-                            Component
-                                .text("Lava Challenge has been disabled.")
-                                .color(NamedTextColor.RED)
-                                .decoration(TextDecoration.BOLD, false)
-                        )
-                )
+                sendChallengeMessage("Lava Challenge has been disabled.", NamedTextColor.RED)
                 config.set("challenges.lava-challenge.active", false)
             }
             Main.instance.saveConfig()
@@ -94,33 +90,11 @@ object SettingsGUI : Listener {
         if (item?.displayName() == RandomMobChallenge.guiItem().displayName()) {
             if (!RandomMobChallenge.isActive) {
                 RandomMobChallenge.isActive = true
-                Bukkit.broadcast(
-                    Component
-                        .text("Challenges: ")
-                        .color(NamedTextColor.GOLD)
-                        .decoration(TextDecoration.BOLD, true)
-                        .append(
-                            Component
-                                .text("Random Mob Challenge has been enabled.")
-                                .color(NamedTextColor.GREEN)
-                                .decoration(TextDecoration.BOLD, false)
-                        )
-                )
+                sendChallengeMessage("Random Mob Challenge has been enabled.", NamedTextColor.GREEN)
                 config.set("challenges.random-mob-challenge.active", true)
             } else {
                 RandomMobChallenge.isActive = false
-                Bukkit.broadcast(
-                    Component
-                        .text("Challenges: ")
-                        .color(NamedTextColor.GOLD)
-                        .decoration(TextDecoration.BOLD, true)
-                        .append(
-                            Component
-                                .text("Random Mob Challenge has been disabled.")
-                                .color(NamedTextColor.RED)
-                                .decoration(TextDecoration.BOLD, false)
-                        )
-                )
+                sendChallengeMessage("Random Mob Challenge has been disabled.", NamedTextColor.RED)
                 config.set("challenges.random-mob-challenge.active", false)
             }
             Main.instance.saveConfig()
@@ -129,34 +103,27 @@ object SettingsGUI : Listener {
         if (item?.displayName() == RandomEffectChallenge.guiItem().displayName()) {
             if (!RandomEffectChallenge.isActive) {
                 RandomEffectChallenge.isActive = true
-                Bukkit.broadcast(
-                    Component
-                        .text("Challenges: ")
-                        .color(NamedTextColor.GOLD)
-                        .decoration(TextDecoration.BOLD, true)
-                        .append(
-                            Component
-                                .text("Random Effect Challenge has been enabled.")
-                                .color(NamedTextColor.GREEN)
-                                .decoration(TextDecoration.BOLD, false)
-                        )
-                )
+                sendChallengeMessage("Random Effect Challenge has been enabled.", NamedTextColor.GREEN)
                 config.set("challenges.random-effect-challenge.active", true)
             } else {
                 RandomEffectChallenge.isActive = false
-                Bukkit.broadcast(
-                    Component
-                        .text("Challenges: ")
-                        .color(NamedTextColor.GOLD)
-                        .decoration(TextDecoration.BOLD, true)
-                        .append(
-                            Component
-                                .text("Random Effect Challenge has been disabled.")
-                                .color(NamedTextColor.RED)
-                                .decoration(TextDecoration.BOLD, false)
-                        )
-                )
+                sendChallengeMessage("Random Effect Challenge has been disabled.", NamedTextColor.RED)
                 config.set("challenges.random-effect-challenge.active", false)
+            }
+            Main.instance.saveConfig()
+        }
+
+        if (item?.displayName() == HealthChallenge.guiItem().displayName()) {
+            if (!HealthChallenge.isActive) {
+                HealthChallenge.isActive = true
+                sendChallengeMessage("Health Challenge has been enabled.", NamedTextColor.GREEN)
+                config.set("challenges.health-challenge.active", true)
+                HealthChallenge.setHealth(config.getInt("challenges.health-challenge.health").toDouble())
+            } else {
+                HealthChallenge.isActive = false
+                sendChallengeMessage("Health Challenge has been disabled.", NamedTextColor.RED)
+                config.set("challenges.health-challenge.active", false)
+                HealthChallenge.setHealth(20.0)
             }
             Main.instance.saveConfig()
         }

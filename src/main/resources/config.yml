@@ -14,7 +14,10 @@ challenges:
     max-level: 9
     infinite-effect-duration: false
     effect-duration: 180
+  health-challenge:
+    active: false
+    health: 6
 timer:
   stop-timer-on-death: true
   time: 0
-  save-time-between-sessions: true
+  save-time-between-sessions: false
