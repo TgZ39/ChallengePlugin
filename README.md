@@ -5,8 +5,8 @@ Minecraft Plugin for 1.20+ with Challenges
 - Random Mob Challenge
 - Random Effect Challenge
 - Lava Challenge
-- Setting UI
-- Timer
+- Setting UI (`/settings`)
+- Timer (`/timer [resume, pause, reset, set]`)
 - highly customizable configuration 
 
 
