@@ -49,8 +49,8 @@ object RandomEffectChallenge : DefaultChallenge {
         lore.add(Component.text(""))
         lore.add(
             Component.text(
-                "Delay: " + config.get("challenges.random-effect-challenge.run-time-lower-bound") + "s - " + config.get(
-                    "challenges.random-effect-challenge.run-time-upper-bound"
+                "Delay: " + config.get("challenges.random-effect-challenge.min-delay") + "s - " + config.get(
+                    "challenges.random-effect-challenge.max-delay"
                 ) + "s"
             ).color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)
         )
@@ -82,8 +82,8 @@ object RandomEffectChallenge : DefaultChallenge {
     }
 
     fun nextDelay(): Int {
-        val lowerBound = Main.instance.config.getInt("challenges.random-effect-challenge.run-time-lower-bound")
-        val upperBound = Main.instance.config.getInt("challenges.random-effect-challenge.run-time-upper-bound")
+        val lowerBound = Main.instance.config.getInt("challenges.random-effect-challenge.min-delay")
+        val upperBound = Main.instance.config.getInt("challenges.random-effect-challenge.max-delay")
 
         return Random().nextInt(lowerBound, upperBound) * 20
     }

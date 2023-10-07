@@ -3,12 +3,12 @@ challenges:
     active: false
   random-mob-challenge:
     active: false
-    run-time-lower-bound: 60
-    run-time-upper-bound: 120
+    min-delay: 60
+    max-delay: 120
   random-effect-challenge:
     active: false
-    run-time-lower-bound: 120
-    run-time-upper-bound: 180
+    min-delay: 120
+    max-delay: 180
     min-level: 0
     max-level: 9
     infinite-effect-duration: false

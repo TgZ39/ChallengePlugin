@@ -80,8 +80,8 @@ object RandomMobChallenge : DefaultChallenge {
     }
 
     fun nextDelay(): Int {
-        val lowerBound = Main.instance.config.getInt("challenges.random-mob-challenge.run-time-lower-bound")
-        val upperBound = Main.instance.config.getInt("challenges.random-mob-challenge.run-time-upper-bound")
+        val lowerBound = Main.instance.config.getInt("challenges.random-mob-challenge.min-delay")
+        val upperBound = Main.instance.config.getInt("challenges.random-mob-challenge.max-delay")
 
         return Random().nextInt(lowerBound, upperBound) * 20
     }
@@ -110,8 +110,8 @@ object RandomMobChallenge : DefaultChallenge {
         lore.add(Component.text(""))
         lore.add(
             Component.text(
-                "Delay: " + config.get("challenges.random-mob-challenge.run-time-lower-bound") + "s - " + config.get(
-                    "challenges.random-mob-challenge.run-time-upper-bound"
+                "Delay: " + config.get("challenges.random-mob-challenge.min-delay") + "s - " + config.get(
+                    "challenges.random-mob-challenge.max-delay"
                 ) + "s"
             ).color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)
         )
