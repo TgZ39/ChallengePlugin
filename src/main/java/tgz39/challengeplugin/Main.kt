@@ -30,6 +30,8 @@ class Main : JavaPlugin() {
         server.pluginManager.registerEvents(DeathLisenter(), this)
 
         Timer.sendActionBar()
+
+        logger.info("Finished loading Plugin.")
     }
 
     override fun onDisable() {
