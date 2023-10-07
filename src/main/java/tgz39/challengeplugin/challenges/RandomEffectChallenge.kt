@@ -106,8 +106,8 @@ object RandomEffectChallenge : DefaultChallenge {
     }
 
     fun effectDuration(): Int {
-        if (Main.instance.config.getBoolean("challenges.random-effect-challenge.infinite-effect-duration")) return Int.MAX_VALUE
-        else return Main.instance.config.getInt("challenges.random-effect-challenge.effect-duration") * 20
+        return if (Main.instance.config.getBoolean("challenges.random-effect-challenge.infinite-effect-duration")) Int.MAX_VALUE
+        else Main.instance.config.getInt("challenges.random-effect-challenge.effect-duration") * 20
     }
 
     private fun run() {
