@@ -32,6 +32,7 @@ class Main : JavaPlugin() {
         Timer.sendActionBar()
 
         logger.info("Finished loading Plugin.")
+        // fixing code
     }
 
     override fun onDisable() {
