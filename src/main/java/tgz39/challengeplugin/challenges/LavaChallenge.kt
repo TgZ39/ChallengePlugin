@@ -41,7 +41,10 @@ object LavaChallenge : DefaultChallenge {
         }
 
         lore.add(Component.text(""))
-        lore.add(Component.text("Height: " + config.get("challenges.lava-challenge.lava-spawn-height")).decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE))
+        lore.add(
+            Component.text("Height: " + config.get("challenges.lava-challenge.lava-spawn-height"))
+                .decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)
+        )
 
         itemMeta.lore(lore)
         item.setItemMeta(itemMeta)

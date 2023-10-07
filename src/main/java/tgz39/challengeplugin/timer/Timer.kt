@@ -23,8 +23,9 @@ object Timer {
     }
 
     private fun initTime() {
-        time = if (Main.instance.config.getBoolean("timer.save-time-between-sessions")) Main.instance.config.getInt("timer.time")
-        else 0
+        time =
+            if (Main.instance.config.getBoolean("timer.save-time-between-sessions")) Main.instance.config.getInt("timer.time")
+            else 0
     }
 
     fun getFormated(): String {
