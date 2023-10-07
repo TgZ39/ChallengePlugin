@@ -7,12 +7,12 @@ challenges:
     run-time-upper-bound: 120
   random-effect-challenge:
     active: false
-    run-time-lower-bound: 10
-    run-time-upper-bound: 20
+    run-time-lower-bound: 120
+    run-time-upper-bound: 180
     min-level: 0
     max-level: 9
     infinite-effect-duration: false
-    effect-duration: 60
+    effect-duration: 180
 timer:
   stop-timer-on-death: true
   time: 0
