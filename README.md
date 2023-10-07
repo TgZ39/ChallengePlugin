@@ -12,7 +12,7 @@ Minecraft Plugin for 1.20+ with Challenges
 
 
 ## Social
-Discord: https://discord.gg/Vmvn5hxaUp
+Discord: https://discord.gg/FrHSKEwBkv
 
 ## Installation
 1. Download the latest version of the [Plugin](https://github.com/TgZ39/ChallengePlugin/releases/).
