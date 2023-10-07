@@ -34,13 +34,16 @@ object RandomEffectChallenge : DefaultChallenge {
 
         itemMeta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS)
 
-        itemMeta.displayName(Component.text("Random Effect Challenge").decorate(TextDecoration.BOLD))
+        itemMeta.displayName(
+            Component.text("Random Effect Challenge").decorate(TextDecoration.BOLD)
+                .decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GOLD)
+        )
 
         if (isActive) {
-            lore.add(Component.text("Enabled").color(NamedTextColor.GREEN))
+            lore.add(Component.text("Enabled").color(NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false))
 
         } else {
-            lore.add(Component.text("Disabled").color(NamedTextColor.RED))
+            lore.add(Component.text("Disabled").color(NamedTextColor.RED).decoration(TextDecoration.ITALIC, false))
         }
 
         lore.add(Component.text(""))
@@ -49,23 +52,25 @@ object RandomEffectChallenge : DefaultChallenge {
                 "Delay: " + config.get("challenges.random-effect-challenge.run-time-lower-bound") + "s - " + config.get(
                     "challenges.random-effect-challenge.run-time-upper-bound"
                 ) + "s"
-            ).color(NamedTextColor.WHITE)
+            ).color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)
         )
         lore.add(
             Component.text(
                 "Level: " + (config.getInt("challenges.random-effect-challenge.min-level") + 1).toString() + " - " + (config.getInt(
                     "challenges.random-effect-challenge.max-level"
                 ) + 1).toString()
-            ).color(NamedTextColor.WHITE)
+            ).color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)
         )
 
         if (config.get("challenges.random-effect-challenge.infinite-effect-duration") == false) {
             lore.add(
                 Component.text("Duration: " + config.get("challenges.random-effect-challenge.effect-duration") + "s")
-                    .color(NamedTextColor.WHITE)
+                    .color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)
             )
         } else {
-            lore.add(Component.text("Duration: ∞" + "s").color(NamedTextColor.WHITE))
+            lore.add(
+                Component.text("Duration: ∞" + "s").color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)
+            )
         }
 
         itemMeta.lore(lore)

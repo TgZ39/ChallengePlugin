@@ -25,13 +25,24 @@ object LavaChallenge : DefaultChallenge {
         val item = ItemStack(Material.LAVA_BUCKET, 1)
         val itemMeta = item.itemMeta
 
-        itemMeta.displayName(Component.text("Lava Challenge").decorate(TextDecoration.BOLD))
+        itemMeta.displayName(
+            Component.text("Lava Challenge").decorate(TextDecoration.BOLD).decoration(TextDecoration.ITALIC, false)
+                .color(NamedTextColor.GOLD)
+        )
 
         if (isActive) {
-            itemMeta.lore(mutableListOf(Component.text("Enabled").color(NamedTextColor.GREEN)))
+            itemMeta.lore(
+                mutableListOf(
+                    Component.text("Enabled").color(NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false)
+                )
+            )
 
         } else {
-            itemMeta.lore(mutableListOf(Component.text("Disabled").color(NamedTextColor.RED)))
+            itemMeta.lore(
+                mutableListOf(
+                    Component.text("Disabled").color(NamedTextColor.RED).decoration(TextDecoration.ITALIC, false)
+                )
+            )
         }
 
         item.setItemMeta(itemMeta)

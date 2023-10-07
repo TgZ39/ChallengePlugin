@@ -1,6 +1,8 @@
 package tgz39.challengeplugin.commands
 
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
@@ -14,23 +16,31 @@ class TimerCommand : CommandExecutor, TabCompleter {
 
 
         if (!sender.hasPermission("challengeplugin.commands.timer")) {
-            sender.sendMessage("You are not allowed to run this command.")
+            sender.sendMessage(Component.text("You are not allowed to use this command.").color(NamedTextColor.RED))
             return false
         }
 
         if (args?.size == 0) {
-            sender.sendMessage(Component.text("Usage: /timer [resume, pause, reset, set]"))
+            sender.sendMessage(Component.text("Usage: /timer [resume, pause, reset, set]").color(NamedTextColor.RED))
         }
 
         when (args?.get(0)?.lowercase()) {
             "resume" -> {
                 Timer.isActive = true
-                sender.sendMessage(Component.text("Timer has been enabled."))
+                sender.sendMessage(
+                    Component.text("Timer: ").decoration(TextDecoration.BOLD, true).color(NamedTextColor.GOLD).append(
+                        Component.text("Enabled").decoration(TextDecoration.BOLD, false).color(NamedTextColor.WHITE)
+                    )
+                )
             }
 
             "pause" -> {
                 Timer.isActive = false
-                sender.sendMessage(Component.text("Timer has been paused."))
+                sender.sendMessage(
+                    Component.text("Timer: ").decoration(TextDecoration.BOLD, true).color(NamedTextColor.GOLD).append(
+                        Component.text("Paused").decoration(TextDecoration.BOLD, false).color(NamedTextColor.WHITE)
+                    )
+                )
             }
 
             "reset" -> {
@@ -39,21 +49,38 @@ class TimerCommand : CommandExecutor, TabCompleter {
                 Timer.ticks = 0
                 RandomMobChallenge.time = 0
                 RandomEffectChallenge.time = 0
-                sender.sendMessage(Component.text("Timer has been reset."))
+                sender.sendMessage(
+                    Component.text("Timer: ").decoration(TextDecoration.BOLD, true).color(NamedTextColor.GOLD).append(
+                        Component.text("Reset").decoration(TextDecoration.BOLD, false).color(NamedTextColor.WHITE)
+                    )
+                )
             }
 
             "set" -> {
                 if (args.size < 2) {
-                    sender.sendMessage(Component.text("Usage: /timer set <SECONDS>"))
+                    sender.sendMessage(Component.text("Usage: /timer set <SECONDS>").color(NamedTextColor.RED))
                     return false
                 }
                 try {
                     Timer.time = args[1].toInt()
+                    sender.sendMessage(
+                        Component.text("Timer: ").decoration(TextDecoration.BOLD, true).color(NamedTextColor.GOLD)
+                            .append(
+                                Component.text("Set to: " + Timer.getFormated()).decoration(TextDecoration.BOLD, false)
+                                    .color(NamedTextColor.WHITE)
+                            )
+                    )
 
                 } catch (e: NumberFormatException) {
-                    sender.sendMessage(Component.text("Usage: /timer set <SECONDS>"))
+                    sender.sendMessage(Component.text("Usage: /timer set <SECONDS>").color(NamedTextColor.RED))
                     return false
                 }
+            }
+
+            else -> {
+                sender.sendMessage(
+                    Component.text("Usage: /timer [resume, pause, reset, set]").color(NamedTextColor.RED)
+                )
             }
         }
 

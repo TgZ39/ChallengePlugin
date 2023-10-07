@@ -95,13 +95,16 @@ object RandomMobChallenge : DefaultChallenge {
 
         itemMeta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS)
 
-        itemMeta.displayName(Component.text("Random Mob Challenge").decorate(TextDecoration.BOLD))
+        itemMeta.displayName(
+            Component.text("Random Mob Challenge").decorate(TextDecoration.BOLD)
+                .decoration(TextDecoration.ITALIC, false).color(NamedTextColor.GOLD)
+        )
 
         if (isActive) {
-            lore.add(Component.text("Enabled").color(NamedTextColor.GREEN))
+            lore.add(Component.text("Enabled").color(NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false))
 
         } else {
-            lore.add(Component.text("Disabled").color(NamedTextColor.RED))
+            lore.add(Component.text("Disabled").color(NamedTextColor.RED).decoration(TextDecoration.ITALIC, false))
         }
 
         lore.add(Component.text(""))
@@ -110,7 +113,7 @@ object RandomMobChallenge : DefaultChallenge {
                 "Delay: " + config.get("challenges.random-mob-challenge.run-time-lower-bound") + "s - " + config.get(
                     "challenges.random-mob-challenge.run-time-upper-bound"
                 ) + "s"
-            ).color(NamedTextColor.WHITE)
+            ).color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)
         )
 
         itemMeta.lore(lore)

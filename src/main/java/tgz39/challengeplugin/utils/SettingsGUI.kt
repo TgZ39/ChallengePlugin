@@ -61,13 +61,13 @@ object SettingsGUI : Listener {
                 LavaChallenge.isActive = true
                 Bukkit.broadcast(
                     Component
-                        .text("ChallengePlugin: ")
-                        .color(NamedTextColor.GREEN)
+                        .text("Challenges: ")
+                        .color(NamedTextColor.GOLD)
                         .decoration(TextDecoration.BOLD, true)
                         .append(
                             Component
                                 .text("Lava Challenge has been enabled.")
-                                .color(NamedTextColor.WHITE)
+                                .color(NamedTextColor.GREEN)
                                 .decoration(TextDecoration.BOLD, false)
                         )
                 )
@@ -76,13 +76,13 @@ object SettingsGUI : Listener {
                 LavaChallenge.isActive = false
                 Bukkit.broadcast(
                     Component
-                        .text("ChallengePlugin: ")
-                        .color(NamedTextColor.RED)
+                        .text("Challenges: ")
+                        .color(NamedTextColor.GOLD)
                         .decoration(TextDecoration.BOLD, true)
                         .append(
                             Component
                                 .text("Lava Challenge has been disabled.")
-                                .color(NamedTextColor.WHITE)
+                                .color(NamedTextColor.RED)
                                 .decoration(TextDecoration.BOLD, false)
                         )
                 )
@@ -96,13 +96,13 @@ object SettingsGUI : Listener {
                 RandomMobChallenge.isActive = true
                 Bukkit.broadcast(
                     Component
-                        .text("ChallengePlugin: ")
-                        .color(NamedTextColor.GREEN)
+                        .text("Challenges: ")
+                        .color(NamedTextColor.GOLD)
                         .decoration(TextDecoration.BOLD, true)
                         .append(
                             Component
                                 .text("Random Mob Challenge has been enabled.")
-                                .color(NamedTextColor.WHITE)
+                                .color(NamedTextColor.GREEN)
                                 .decoration(TextDecoration.BOLD, false)
                         )
                 )
@@ -111,13 +111,13 @@ object SettingsGUI : Listener {
                 RandomMobChallenge.isActive = false
                 Bukkit.broadcast(
                     Component
-                        .text("ChallengePlugin: ")
-                        .color(NamedTextColor.RED)
+                        .text("Challenges: ")
+                        .color(NamedTextColor.GOLD)
                         .decoration(TextDecoration.BOLD, true)
                         .append(
                             Component
                                 .text("Random Mob Challenge has been disabled.")
-                                .color(NamedTextColor.WHITE)
+                                .color(NamedTextColor.RED)
                                 .decoration(TextDecoration.BOLD, false)
                         )
                 )
@@ -131,13 +131,13 @@ object SettingsGUI : Listener {
                 RandomEffectChallenge.isActive = true
                 Bukkit.broadcast(
                     Component
-                        .text("ChallengePlugin: ")
-                        .color(NamedTextColor.GREEN)
+                        .text("Challenges: ")
+                        .color(NamedTextColor.GOLD)
                         .decoration(TextDecoration.BOLD, true)
                         .append(
                             Component
                                 .text("Random Effect Challenge has been enabled.")
-                                .color(NamedTextColor.WHITE)
+                                .color(NamedTextColor.GREEN)
                                 .decoration(TextDecoration.BOLD, false)
                         )
                 )
@@ -146,13 +146,13 @@ object SettingsGUI : Listener {
                 RandomEffectChallenge.isActive = false
                 Bukkit.broadcast(
                     Component
-                        .text("ChallengePlugin: ")
-                        .color(NamedTextColor.RED)
+                        .text("Challenges: ")
+                        .color(NamedTextColor.GOLD)
                         .decoration(TextDecoration.BOLD, true)
                         .append(
                             Component
                                 .text("Random Effect Challenge has been disabled.")
-                                .color(NamedTextColor.WHITE)
+                                .color(NamedTextColor.RED)
                                 .decoration(TextDecoration.BOLD, false)
                         )
                 )

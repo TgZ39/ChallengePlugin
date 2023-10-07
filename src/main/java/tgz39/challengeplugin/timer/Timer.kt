@@ -27,7 +27,7 @@ object Timer {
             Main.instance.config.getInt("timer.time")
     }
 
-    private fun getFormated(): String {
+    fun getFormated(): String {
 
         val seconds = time % 60
         val minutes = (time / 60) % 60
@@ -80,7 +80,7 @@ object Timer {
                     }
                 } else {
                     for (player in Bukkit.getServer().onlinePlayers) {
-                        player.addPotionEffect(PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 21, 255, false))
+                        player.addPotionEffect(PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 21, 255, true))
                     }
                 }
 
