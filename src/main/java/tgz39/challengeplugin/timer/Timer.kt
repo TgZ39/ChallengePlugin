@@ -81,6 +81,7 @@ object Timer {
                 } else {
                     for (player in Bukkit.getServer().onlinePlayers) {
                         player.addPotionEffect(PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 21, 255, true))
+                        player.addPotionEffect(PotionEffect(PotionEffectType.SATURATION, 21, 255, true))
                     }
                 }
 
