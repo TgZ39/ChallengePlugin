@@ -40,4 +40,4 @@ Discord: https://discord.gg/FrHSKEwBkv
    ```
 5. Edit and test the code.
    - To build the plugin open the Maven tab and click `ChallengePlugin -> Lifecycle -> package`.
-7. Create a [pull request](https://github.com/TgZ39/ChallengePlugin/pulls)
+7. Create a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
