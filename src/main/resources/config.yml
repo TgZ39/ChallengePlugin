@@ -17,6 +17,8 @@ challenges:
   health-challenge:
     active: false
     health: 6
+  random-block-drop-challenge:
+    active: false
 timer:
   stop-timer-on-death: true
   time: 0

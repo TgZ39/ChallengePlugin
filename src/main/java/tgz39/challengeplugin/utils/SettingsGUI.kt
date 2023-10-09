@@ -11,10 +11,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryDragEvent
 import tgz39.challengeplugin.Main
-import tgz39.challengeplugin.challenges.HealthChallenge
-import tgz39.challengeplugin.challenges.LavaChallenge
-import tgz39.challengeplugin.challenges.RandomEffectChallenge
-import tgz39.challengeplugin.challenges.RandomMobChallenge
+import tgz39.challengeplugin.challenges.*
 
 object SettingsGUI : Listener {
 
@@ -29,6 +26,7 @@ object SettingsGUI : Listener {
         inventory.setItem(1, RandomMobChallenge.guiItem())
         inventory.setItem(2, RandomEffectChallenge.guiItem())
         inventory.setItem(3, HealthChallenge.guiItem())
+        inventory.setItem(4, RandomBlockDropChallenge.guiItem())
     }
 
     fun openInvetory(player: Player) {
@@ -48,6 +46,7 @@ object SettingsGUI : Listener {
         RandomMobChallenge.isActive = plugin.config.getBoolean("challenges.random-mob-challenge.active")
         RandomEffectChallenge.isActive = plugin.config.getBoolean("challenges.random-effect-challenge.active")
         HealthChallenge.isActive = plugin.config.getBoolean("challenges.health-challenge.active")
+        RandomBlockDropChallenge.isActive = plugin.config.getBoolean("challenges.random-block-drop-challenge.active")
     }
 
     @EventHandler
@@ -118,12 +117,25 @@ object SettingsGUI : Listener {
                 HealthChallenge.isActive = true
                 sendChallengeMessage("Health Challenge has been enabled.", NamedTextColor.GREEN)
                 config.set("challenges.health-challenge.active", true)
-                HealthChallenge.setHealth(config.getInt("challenges.health-challenge.health").toDouble())
+                HealthChallenge.updateHealth()
             } else {
                 HealthChallenge.isActive = false
                 sendChallengeMessage("Health Challenge has been disabled.", NamedTextColor.RED)
                 config.set("challenges.health-challenge.active", false)
-                HealthChallenge.setHealth(20.0)
+                HealthChallenge.updateHealth()
+            }
+            Main.instance.saveConfig()
+        }
+
+        if (item?.displayName() == RandomBlockDropChallenge.guiItem().displayName()) {
+            if (!RandomBlockDropChallenge.isActive) {
+                RandomBlockDropChallenge.isActive = true
+                sendChallengeMessage("Random Block Drop Challenge has been enabled.", NamedTextColor.GREEN)
+                config.set("challenges.random-block-drop-challenge.active", true)
+            } else {
+                RandomBlockDropChallenge.isActive = false
+                sendChallengeMessage("Random Block Drop Challenge has been disabled.", NamedTextColor.RED)
+                config.set("challenges.random-block-drop-challenge.active", false)
             }
             Main.instance.saveConfig()
         }

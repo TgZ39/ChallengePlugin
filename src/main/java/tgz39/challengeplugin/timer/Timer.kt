@@ -19,10 +19,10 @@ object Timer {
 
     init {
         run()
-        initTime()
+        loadConfig()
     }
 
-    private fun initTime() {
+    private fun loadConfig() {
         time =
             if (Main.instance.config.getBoolean("timer.save-time-between-sessions")) Main.instance.config.getInt("timer.time")
             else 0
