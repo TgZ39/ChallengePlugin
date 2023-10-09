@@ -29,12 +29,12 @@ class TimerCommand : CommandExecutor, TabCompleter {
         when (args?.get(0)?.lowercase()) {
             "resume" -> {
                 Timer.isActive = true
-                HealthChallenge.setHealth(Main.instance.config.getInt("challenges.health-challenge.health").toDouble())
                 sender.sendMessage(
                     Component.text("Timer: ").decoration(TextDecoration.BOLD, true).color(NamedTextColor.GOLD).append(
                         Component.text("Enabled").decoration(TextDecoration.BOLD, false).color(NamedTextColor.WHITE)
                     )
                 )
+                HealthChallenge.updateHealth()
             }
 
             "pause" -> {
@@ -44,6 +44,7 @@ class TimerCommand : CommandExecutor, TabCompleter {
                         Component.text("Paused").decoration(TextDecoration.BOLD, false).color(NamedTextColor.WHITE)
                     )
                 )
+                HealthChallenge.updateHealth()
             }
 
             "reset" -> {
@@ -61,6 +62,7 @@ class TimerCommand : CommandExecutor, TabCompleter {
                     Main.instance.config.set("timer.time", Timer.time)
                     Main.instance.saveConfig()
                 }
+                HealthChallenge.updateHealth()
             }
 
             "set" -> {
