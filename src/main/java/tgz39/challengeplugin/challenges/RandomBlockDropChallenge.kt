@@ -15,7 +15,7 @@ object RandomBlockDropChallenge : Listener, DefaultChallenge {
 
     override var isActive = false
     var blockDrops: MutableMap<Material, Material> = mutableMapOf()
-    var seed: Long = 0L
+
 
     init {
         generateRandomDrops()
