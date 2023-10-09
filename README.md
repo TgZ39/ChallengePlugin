@@ -20,14 +20,14 @@ Discord: https://discord.gg/FrHSKEwBkv
 3. Start the Server.
 
 ## Contributing
-
-1. Clone the repository
+1. Fork the repository.
+2. Clone the repository.
    ```
-    git clone https://github.com/TgZ39/ChallengePlugin
+    git clone https://github.com/YOUR_USERNAME/ChallengePlugin
    ```
-2. Open the created `ChallengePlugin` folder in [IntelliJ](https://www.jetbrains.com/de-de/idea/)
-3. Download Java 17 (Zulu Recommended) if IntelliJ tells you to.
-4. Change the `outputDirectory` in the `pom.xml` to your preferred folder.
+3. Open the created `ChallengePlugin` folder in [IntelliJ](https://www.jetbrains.com/de-de/idea/)
+4. Download Java 17 (Zulu Recommended) if IntelliJ tells you to.
+5. Change the `outputDirectory` in the `pom.xml` to your preferred folder.
    ```xml
    <plugin>
       <groupId>org.apache.maven.plugins</groupId>
@@ -38,6 +38,6 @@ Discord: https://discord.gg/FrHSKEwBkv
       </configuration>
    </plugin>
    ```
-5. Edit and test the code.
+6. Edit and test the code.
    - To build the plugin open the Maven tab and click `ChallengePlugin -> Lifecycle -> package`.
-7. Create a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
+7. Create a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork).
