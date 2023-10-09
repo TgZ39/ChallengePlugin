@@ -10,10 +10,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 import tgz39.challengeplugin.Main
-import tgz39.challengeplugin.challenges.HealthChallenge
-import tgz39.challengeplugin.challenges.LavaChallenge
-import tgz39.challengeplugin.challenges.RandomEffectChallenge
-import tgz39.challengeplugin.challenges.RandomMobChallenge
+import tgz39.challengeplugin.challenges.*
 import tgz39.challengeplugin.utils.SettingsGUI
 import tgz39.challengeplugin.utils.isNumber
 
@@ -64,8 +61,13 @@ class SettingsCommand : CommandExecutor, TabCompleter {
 
         } else if (args?.size == 1 || args?.size == 2) {
 
-            sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
+            if (args[1].lowercase() == "reset") {
+                RandomBlockDropChallenge.generateRandomDrops()
+                sendMessage("Random Block Drop Challenge drops have been randomized.", NamedTextColor.WHITE)
 
+            } else {
+                sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
+            }
         } else if (args?.size!! >= 3) {
             if (args[0].lowercase() == "random-effect-challenge") {
                 if (args[1].lowercase() == "active") {
@@ -270,6 +272,28 @@ class SettingsCommand : CommandExecutor, TabCompleter {
                     sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
                 }
 
+            } else if (args[0].lowercase() == "random-block-drop-challenge") {
+                if (args[1].lowercase() == "active") {
+                    if (args[2].lowercase() == "true") {
+
+                        RandomBlockDropChallenge.isActive = true
+                        sendMessage("Random Block Drop Challenge has been enabled.", NamedTextColor.GREEN)
+                        config.set("challenges.random-block-drop-challenge.active", true)
+                        Main.instance.saveConfig()
+
+                    } else if (args[2].lowercase() == "false") {
+
+                        RandomBlockDropChallenge.isActive = false
+                        sendMessage("Random Block Drop Challenge has been disabled.", NamedTextColor.RED)
+                        config.set("challenges.random-block-drop-challenge.active", false)
+                        Main.instance.saveConfig()
+                    } else {
+                        sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
+                    }
+                } else {
+                    sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
+                }
+
             } else {
                 sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
             }
@@ -292,6 +316,7 @@ class SettingsCommand : CommandExecutor, TabCompleter {
             list.add("random-mob-challenge")
             list.add("lava-challenge")
             list.add("health-challenge")
+            list.add("random-block-drop-challenge")
         }
 
         if (args?.size == 2) {
@@ -319,6 +344,9 @@ class SettingsCommand : CommandExecutor, TabCompleter {
             } else if (args[0].lowercase() == "health-challenge") {
                 list.add("active")
                 list.add("health")
+            } else if (args[0].lowercase() == "random-block-drop-challenge") {
+                list.add("active")
+                list.add("reset")
             }
         }
 
@@ -342,6 +370,11 @@ class SettingsCommand : CommandExecutor, TabCompleter {
                     list.add("false")
                 }
             } else if (args[0].lowercase() == "health-challenge") {
+                if (args[1].lowercase() == "active") {
+                    list.add("true")
+                    list.add("false")
+                }
+            } else if (args[0].lowercase() == "random-block-drop-challenge") {
                 if (args[1].lowercase() == "active") {
                     list.add("true")
                     list.add("false")

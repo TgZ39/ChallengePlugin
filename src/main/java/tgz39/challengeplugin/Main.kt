@@ -1,6 +1,7 @@
 package tgz39.challengeplugin
 
 import org.bukkit.plugin.java.JavaPlugin
+import tgz39.challengeplugin.challenges.RandomBlockDropChallenge
 import tgz39.challengeplugin.commands.SettingsCommand
 import tgz39.challengeplugin.commands.TimerCommand
 import tgz39.challengeplugin.listeners.DeathLisenter
@@ -20,6 +21,7 @@ class Main : JavaPlugin() {
     override fun onEnable() {
 
         saveDefaultConfig()
+
         logger.info("Loading Plugin...")
 
         getCommand("settings")?.setExecutor(SettingsCommand())
@@ -28,8 +30,10 @@ class Main : JavaPlugin() {
 
         server.pluginManager.registerEvents(SettingsGUI, this)
         server.pluginManager.registerEvents(DeathLisenter(), this)
+        server.pluginManager.registerEvents(RandomBlockDropChallenge, this)
 
         Timer.sendActionBar()
+
     }
 
     override fun onDisable() {
