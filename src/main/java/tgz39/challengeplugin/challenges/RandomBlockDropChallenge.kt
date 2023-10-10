@@ -47,17 +47,18 @@ object RandomBlockDropChallenge : Listener, DefaultChallenge {
     }
 
     fun generateRandomDrops() {
-        val usedBlocks: MutableList<Material> = mutableListOf()
+        var items = Material.entries.filter { it.isItem }.toMutableList()
         blockDrops.clear()
 
         for (material in Material.entries) {
             while (true) {
-                val randomBlock = Material.entries.random()
-
-                if (randomBlock !in usedBlocks) {
-                    blockDrops[material] = randomBlock
-                    usedBlocks.add(randomBlock)
+                if (items.isNotEmpty()) {
+                    val randomItem = items.random()
+                    blockDrops[material] = randomItem
+                    items.remove(randomItem)
                     break
+                } else {
+                    items = Material.entries.filter { it.isItem }.toMutableList()
                 }
             }
         }
