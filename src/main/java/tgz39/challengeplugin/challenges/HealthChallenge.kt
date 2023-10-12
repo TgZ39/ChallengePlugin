@@ -14,14 +14,20 @@ import tgz39.challengeplugin.utils.DefaultChallenge
 object HealthChallenge : DefaultChallenge {
 
     override var isActive = false
+    var health = 6.0
 
     init {
+        updateConfig()
         updateHealth()
     }
 
-    override fun guiItem(): ItemStack {
-
+    fun updateConfig() {
         val config = Main.instance.config
+        isActive = config.getBoolean("challenges.health-challenge.active")
+        health = config.getInt("challenges.health-challenge.health").toDouble()
+    }
+
+    override fun guiItem(): ItemStack {
         val item = ItemStack(Material.TOTEM_OF_UNDYING, 1)
         val itemMeta = item.itemMeta
         val lore = itemMeta.lore() ?: ArrayList()
@@ -41,7 +47,7 @@ object HealthChallenge : DefaultChallenge {
 
         lore.add(Component.text(""))
         lore.add(
-            Component.text("Health: " + config.get("challenges.health-challenge.health")).decoration(
+            Component.text("Health: ${health.toInt()}").decoration(
                 TextDecoration.ITALIC, false
             ).color(NamedTextColor.WHITE)
         )
@@ -52,20 +58,18 @@ object HealthChallenge : DefaultChallenge {
         return item
     }
 
-    fun setHealth(healthPoints: Double) {
+    fun setPlayerHealth(healthPoints: Double) {
         for (player in Bukkit.getServer().onlinePlayers) {
             player.getAttribute(Attribute.GENERIC_MAX_HEALTH)?.baseValue = healthPoints
+            player.health = healthPoints
         }
     }
 
     fun updateHealth() {
-
-        val config = Main.instance.config
-
-        if (config.getBoolean("challenges.health-challenge.active")) {
-            setHealth(config.getInt("challenges.health-challenge.health").toDouble())
+        if (isActive) {
+            setPlayerHealth(health)
         } else {
-            setHealth(20.0)
+            setPlayerHealth(20.0)
         }
     }
 

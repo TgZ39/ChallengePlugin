@@ -4,6 +4,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
+import org.bukkit.Sound
 import org.bukkit.entity.HumanEntity
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -16,10 +17,6 @@ import tgz39.challengeplugin.challenges.*
 object SettingsGUI : Listener {
 
     private var inventory = Bukkit.createInventory(null, 9, Component.text("Settings"))
-
-    init {
-        loadconfig()
-    }
 
     private fun updateInventory() {
         inventory.setItem(0, LavaChallenge.guiItem())
@@ -37,16 +34,6 @@ object SettingsGUI : Listener {
     fun openInvetory(player: HumanEntity) {
         updateInventory()
         player.openInventory(inventory)
-    }
-
-    private fun loadconfig() {
-        val plugin = Main.instance
-
-        LavaChallenge.isActive = plugin.config.getBoolean("challenges.lava-challenge.active")
-        RandomMobChallenge.isActive = plugin.config.getBoolean("challenges.random-mob-challenge.active")
-        RandomEffectChallenge.isActive = plugin.config.getBoolean("challenges.random-effect-challenge.active")
-        HealthChallenge.isActive = plugin.config.getBoolean("challenges.health-challenge.active")
-        RandomBlockDropChallenge.isActive = plugin.config.getBoolean("challenges.random-block-drop-challenge.active")
     }
 
     @EventHandler
@@ -72,6 +59,7 @@ object SettingsGUI : Listener {
         val player = event.whoClicked
         val item = event.currentItem
         val config = Main.instance.config
+        player.world.playSound(player.location, Sound.BLOCK_DISPENSER_DISPENSE, 10f, 1f)
 
         if (item?.displayName() == LavaChallenge.guiItem().displayName()) {
             if (!LavaChallenge.isActive) {
@@ -84,6 +72,7 @@ object SettingsGUI : Listener {
                 config.set("challenges.lava-challenge.active", false)
             }
             Main.instance.saveConfig()
+            LavaChallenge.updateConfig()
         }
 
         if (item?.displayName() == RandomMobChallenge.guiItem().displayName()) {
@@ -110,6 +99,7 @@ object SettingsGUI : Listener {
                 config.set("challenges.random-effect-challenge.active", false)
             }
             Main.instance.saveConfig()
+            RandomEffectChallenge.updateConfig()
         }
 
         if (item?.displayName() == HealthChallenge.guiItem().displayName()) {
@@ -117,14 +107,15 @@ object SettingsGUI : Listener {
                 HealthChallenge.isActive = true
                 sendChallengeMessage("Health Challenge has been enabled.", NamedTextColor.GREEN)
                 config.set("challenges.health-challenge.active", true)
-                HealthChallenge.updateHealth()
+                HealthChallenge.updateConfig()
             } else {
                 HealthChallenge.isActive = false
                 sendChallengeMessage("Health Challenge has been disabled.", NamedTextColor.RED)
                 config.set("challenges.health-challenge.active", false)
-                HealthChallenge.updateHealth()
+                HealthChallenge.updateConfig()
             }
             Main.instance.saveConfig()
+            HealthChallenge.updateHealth()
         }
 
         if (item?.displayName() == RandomBlockDropChallenge.guiItem().displayName()) {
@@ -138,6 +129,7 @@ object SettingsGUI : Listener {
                 config.set("challenges.random-block-drop-challenge.active", false)
             }
             Main.instance.saveConfig()
+            RandomBlockDropChallenge.updateConfig()
         }
 
         event.isCancelled = true

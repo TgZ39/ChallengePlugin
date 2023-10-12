@@ -16,16 +16,19 @@ object Timer {
     var isActive = false
     var time = 0
     var ticks = 0
+    var saveTimeBetweenSessions = true
 
     init {
+        updateConfig()
         run()
-        loadConfig()
     }
 
-    private fun loadConfig() {
-        time =
-            if (Main.instance.config.getBoolean("timer.save-time-between-sessions")) Main.instance.config.getInt("timer.time")
-            else 0
+    private fun updateConfig() {
+
+        val config = Main.instance.config
+
+        time = if (config.getBoolean("timer.save-time-between-sessions")) config.getInt("timer.time") else 0
+        saveTimeBetweenSessions = config.getBoolean("timer.save-time-between-sessions")
     }
 
     fun getFormated(): String {
@@ -74,7 +77,7 @@ object Timer {
                     if (ticks >= 20) {
                         time++
                         ticks = 0
-                        if (Main.instance.config.getBoolean("timer.save-time-between-sessions")) {
+                        if (saveTimeBetweenSessions) {
                             Main.instance.config.set("timer.time", time)
                             Main.instance.saveConfig()
                         }

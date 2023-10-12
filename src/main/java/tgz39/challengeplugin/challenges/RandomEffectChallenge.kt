@@ -18,16 +18,34 @@ import java.util.*
 object RandomEffectChallenge : DefaultChallenge {
 
     override var isActive = false
-    var time = 0
-    var delay = nextDelay()
+    var time: Int = 0
+    var delay: Int = 0
+    var minDelay: Int = 120
+    var maxDelay: Int = 180
+    var minLevel: Int = 0
+    var maxLevel: Int = 9
+    var infiniteEffectDuration: Boolean = false
+    var effectDuration: Int = 180
 
     init {
+        updateConfig()
+        delay = nextDelay()
         run()
+    }
+
+    fun updateConfig() {
+        val config = Main.instance.config
+        isActive = config.getBoolean("challenges.random-effect-challenge.active")
+        minDelay = config.getInt("challenges.random-effect-challenge.min-delay")
+        maxDelay = config.getInt("challenges.random-effect-challenge.max-delay")
+        minLevel = config.getInt("challenges.random-effect-challenge.min-level")
+        maxLevel = config.getInt("challenges.random-effect-challenge.max-level")
+        infiniteEffectDuration = config.getBoolean("challenges.random-effect-challenge.infinite-effect-duration")
+        effectDuration = config.getInt("challenges.random-effect-challenge.effect-duration")
     }
 
     override fun guiItem(): ItemStack {
 
-        val config = Main.instance.config
         val item = ItemStack(Material.POTION, 1)
         val itemMeta = item.itemMeta
         val lore = itemMeta.lore() ?: ArrayList()
@@ -49,22 +67,18 @@ object RandomEffectChallenge : DefaultChallenge {
         lore.add(Component.text(""))
         lore.add(
             Component.text(
-                "Delay: " + config.get("challenges.random-effect-challenge.min-delay") + "s - " + config.get(
-                    "challenges.random-effect-challenge.max-delay"
-                ) + "s"
+                "Delay: ${minDelay}s - ${maxDelay}s"
             ).color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)
         )
         lore.add(
             Component.text(
-                "Level: " + (config.getInt("challenges.random-effect-challenge.min-level") + 1).toString() + " - " + (config.getInt(
-                    "challenges.random-effect-challenge.max-level"
-                ) + 1).toString()
+                "Level: ${minLevel+1} - ${maxLevel+1}"
             ).color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)
         )
 
-        if (config.get("challenges.random-effect-challenge.infinite-effect-duration") == false) {
+        if (!infiniteEffectDuration) {
             lore.add(
-                Component.text("Duration: " + config.get("challenges.random-effect-challenge.effect-duration") + "s")
+                Component.text("Duration: ${effectDuration}s")
                     .color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)
             )
         } else {
@@ -77,15 +91,10 @@ object RandomEffectChallenge : DefaultChallenge {
         item.setItemMeta(itemMeta)
 
         return item
-
-
     }
 
     fun nextDelay(): Int {
-        val lowerBound = Main.instance.config.getInt("challenges.random-effect-challenge.min-delay")
-        val upperBound = Main.instance.config.getInt("challenges.random-effect-challenge.max-delay")
-
-        return Random().nextInt(lowerBound, upperBound) * 20
+        return Random().nextInt(minDelay, maxDelay) * 20
     }
 
     fun getRandomEffect(): PotionEffectType {
@@ -99,15 +108,12 @@ object RandomEffectChallenge : DefaultChallenge {
     }
 
     fun getRandomEffectLevel(): Int {
-        val lowerBound = Main.instance.config.getInt("challenges.random-effect-challenge.min-level")
-        val upperBound = Main.instance.config.getInt("challenges.random-effect-challenge.max-level")
-
-        return Random().nextInt(lowerBound, upperBound)
+        return Random().nextInt(minLevel, maxLevel)
     }
 
     fun effectDuration(): Int {
-        return if (Main.instance.config.getBoolean("challenges.random-effect-challenge.infinite-effect-duration")) Int.MAX_VALUE
-        else Main.instance.config.getInt("challenges.random-effect-challenge.effect-duration") * 20
+        return if (infiniteEffectDuration) Int.MAX_VALUE
+        else effectDuration * 20
     }
 
     private fun run() {

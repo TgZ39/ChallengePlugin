@@ -17,12 +17,22 @@ import java.util.*
 object RandomMobChallenge : DefaultChallenge {
 
     override var isActive = false
-
     var time = 0
-    var delay = nextDelay()
+    var delay = 0
+    var minDelay = 60
+    var maxDelay = 120
 
     init {
+        updateConfig()
+        delay = nextDelay()
         run()
+    }
+
+    fun updateConfig() {
+        val config = Main.instance.config
+        isActive = config.getBoolean("challenges.random-mob-challenge.active")
+        minDelay = config.getInt("challenges.random-mob-challenge.min-delay")
+        maxDelay = config.getInt("challenges.random-mob-challenge.max-delay")
     }
 
     fun getRandomMob(): EntityType {
@@ -80,15 +90,11 @@ object RandomMobChallenge : DefaultChallenge {
     }
 
     fun nextDelay(): Int {
-        val lowerBound = Main.instance.config.getInt("challenges.random-mob-challenge.min-delay")
-        val upperBound = Main.instance.config.getInt("challenges.random-mob-challenge.max-delay")
-
-        return Random().nextInt(lowerBound, upperBound) * 20
+        return Random().nextInt(minDelay, maxDelay) * 20
     }
 
     override fun guiItem(): ItemStack {
 
-        val config = Main.instance.config
         val item = ItemStack(Material.SPAWNER, 1)
         val itemMeta = item.itemMeta
         val lore = itemMeta.lore() ?: ArrayList()
@@ -110,9 +116,7 @@ object RandomMobChallenge : DefaultChallenge {
         lore.add(Component.text(""))
         lore.add(
             Component.text(
-                "Delay: " + config.get("challenges.random-mob-challenge.min-delay") + "s - " + config.get(
-                    "challenges.random-mob-challenge.max-delay"
-                ) + "s"
+                "Delay: ${minDelay}s - ${maxDelay}s"
             ).color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)
         )
 

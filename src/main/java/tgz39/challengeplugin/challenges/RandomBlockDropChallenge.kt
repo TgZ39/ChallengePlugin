@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.inventory.ItemStack
+import tgz39.challengeplugin.Main
 import tgz39.challengeplugin.timer.Timer
 import tgz39.challengeplugin.utils.DefaultChallenge
 
@@ -16,9 +17,13 @@ object RandomBlockDropChallenge : Listener, DefaultChallenge {
     override var isActive = false
     var blockDrops: MutableMap<Material, Material> = mutableMapOf()
 
-
     init {
+        updateConfig()
         generateRandomDrops()
+    }
+
+    fun updateConfig() {
+        val config = Main.instance.config
     }
 
     override fun guiItem(): ItemStack {

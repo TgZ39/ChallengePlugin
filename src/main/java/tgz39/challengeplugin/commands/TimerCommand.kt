@@ -24,58 +24,43 @@ class TimerCommand : CommandExecutor, TabCompleter {
 
         if (args?.size == 0) {
             sender.sendMessage(Component.text("Usage: /timer [resume, pause, reset, set]").color(NamedTextColor.RED))
-        }
+        } else {
 
-        when (args?.get(0)?.lowercase()) {
-            "resume" -> {
-                Timer.isActive = true
-                sender.sendMessage(
-                    Component.text("Timer: ").decoration(TextDecoration.BOLD, true).color(NamedTextColor.GOLD).append(
-                        Component.text("Enabled").decoration(TextDecoration.BOLD, false).color(NamedTextColor.WHITE)
-                    )
-                )
-                HealthChallenge.updateHealth()
-            }
-
-            "pause" -> {
-                Timer.isActive = false
-                sender.sendMessage(
-                    Component.text("Timer: ").decoration(TextDecoration.BOLD, true).color(NamedTextColor.GOLD).append(
-                        Component.text("Paused").decoration(TextDecoration.BOLD, false).color(NamedTextColor.WHITE)
-                    )
-                )
-                HealthChallenge.updateHealth()
-            }
-
-            "reset" -> {
-                Timer.isActive = false
-                Timer.time = 0
-                Timer.ticks = 0
-                RandomMobChallenge.time = 0
-                RandomEffectChallenge.time = 0
-                sender.sendMessage(
-                    Component.text("Timer: ").decoration(TextDecoration.BOLD, true).color(NamedTextColor.GOLD).append(
-                        Component.text("Reset").decoration(TextDecoration.BOLD, false).color(NamedTextColor.WHITE)
-                    )
-                )
-                if (Main.instance.config.getBoolean("timer.save-time-between-sessions")) {
-                    Main.instance.config.set("timer.time", Timer.time)
-                    Main.instance.saveConfig()
-                }
-                HealthChallenge.updateHealth()
-            }
-
-            "set" -> {
-                if (args.size < 2) {
-                    sender.sendMessage(Component.text("Usage: /timer set <SECONDS>").color(NamedTextColor.RED))
-                    return false
-                }
-                try {
-                    Timer.time = args[1].toInt()
+            when (args?.get(0)?.lowercase()) {
+                "resume" -> {
+                    Timer.isActive = true
                     sender.sendMessage(
                         Component.text("Timer: ").decoration(TextDecoration.BOLD, true).color(NamedTextColor.GOLD)
                             .append(
-                                Component.text("Set to: " + Timer.getFormated()).decoration(TextDecoration.BOLD, false)
+                                Component.text("Enabled").decoration(TextDecoration.BOLD, false)
+                                    .color(NamedTextColor.WHITE)
+                            )
+                    )
+                    HealthChallenge.updateHealth()
+                }
+
+                "pause" -> {
+                    Timer.isActive = false
+                    sender.sendMessage(
+                        Component.text("Timer: ").decoration(TextDecoration.BOLD, true).color(NamedTextColor.GOLD)
+                            .append(
+                                Component.text("Paused").decoration(TextDecoration.BOLD, false)
+                                    .color(NamedTextColor.WHITE)
+                            )
+                    )
+                    HealthChallenge.updateHealth()
+                }
+
+                "reset" -> {
+                    Timer.isActive = false
+                    Timer.time = 0
+                    Timer.ticks = 0
+                    RandomMobChallenge.time = 0
+                    RandomEffectChallenge.time = 0
+                    sender.sendMessage(
+                        Component.text("Timer: ").decoration(TextDecoration.BOLD, true).color(NamedTextColor.GOLD)
+                            .append(
+                                Component.text("Reset").decoration(TextDecoration.BOLD, false)
                                     .color(NamedTextColor.WHITE)
                             )
                     )
@@ -83,17 +68,40 @@ class TimerCommand : CommandExecutor, TabCompleter {
                         Main.instance.config.set("timer.time", Timer.time)
                         Main.instance.saveConfig()
                     }
-
-                } catch (e: NumberFormatException) {
-                    sender.sendMessage(Component.text("Usage: /timer set <SECONDS>").color(NamedTextColor.RED))
-                    return false
+                    HealthChallenge.updateHealth()
                 }
-            }
 
-            else -> {
-                sender.sendMessage(
-                    Component.text("Usage: /timer [resume, pause, reset, set]").color(NamedTextColor.RED)
-                )
+                "set" -> {
+                    if (args.size < 2) {
+                        sender.sendMessage(Component.text("Usage: /timer set <SECONDS>").color(NamedTextColor.RED))
+                        return false
+                    }
+                    try {
+                        Timer.time = args[1].toInt()
+                        sender.sendMessage(
+                            Component.text("Timer: ").decoration(TextDecoration.BOLD, true).color(NamedTextColor.GOLD)
+                                .append(
+                                    Component.text("Set to: " + Timer.getFormated())
+                                        .decoration(TextDecoration.BOLD, false)
+                                        .color(NamedTextColor.WHITE)
+                                )
+                        )
+                        if (Main.instance.config.getBoolean("timer.save-time-between-sessions")) {
+                            Main.instance.config.set("timer.time", Timer.time)
+                            Main.instance.saveConfig()
+                        }
+
+                    } catch (e: NumberFormatException) {
+                        sender.sendMessage(Component.text("Usage: /timer set <SECONDS>").color(NamedTextColor.RED))
+                        return false
+                    }
+                }
+
+                else -> {
+                    sender.sendMessage(
+                        Component.text("Usage: /timer [resume, pause, reset, set]").color(NamedTextColor.RED)
+                    )
+                }
             }
         }
 

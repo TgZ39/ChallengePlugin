@@ -14,15 +14,22 @@ import tgz39.challengeplugin.utils.DefaultChallenge
 
 object LavaChallenge : DefaultChallenge {
 
+    override var isActive = false
+    var lavaSpawnHeight = 10
+
     init {
+        updateConfig()
         run()
     }
 
-    override var isActive: Boolean = false
+    fun updateConfig() {
+        val config = Main.instance.config
+        isActive = config.getBoolean("challenges.lava-challenge.active")
+        lavaSpawnHeight = config.getInt("challenges.lava-challenge.lava-spawn-height")
+    }
 
     override fun guiItem(): ItemStack {
 
-        val config = Main.instance.config
         val item = ItemStack(Material.LAVA_BUCKET, 1)
         val itemMeta = item.itemMeta
         val lore = itemMeta.lore() ?: ArrayList()
@@ -42,7 +49,7 @@ object LavaChallenge : DefaultChallenge {
 
         lore.add(Component.text(""))
         lore.add(
-            Component.text("Height: " + config.get("challenges.lava-challenge.lava-spawn-height"))
+            Component.text("Height: $lavaSpawnHeight")
                 .decoration(TextDecoration.ITALIC, false).color(NamedTextColor.WHITE)
         )
 
@@ -63,7 +70,7 @@ object LavaChallenge : DefaultChallenge {
                     if (player.gameMode != GameMode.SURVIVAL) continue
 
                     val pos = player.location
-                    pos.y += Main.instance.config.getInt("challenges.lava-challenge.lava-spawn-height")
+                    pos.y += lavaSpawnHeight
 
                     pos.block.type = Material.LAVA
                 }
