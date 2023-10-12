@@ -24,6 +24,7 @@ object RandomBlockDropChallenge : Listener, DefaultChallenge {
 
     fun updateConfig() {
         val config = Main.instance.config
+        isActive = config.getBoolean("challenges.random-block-drop-challenge.active")
     }
 
     override fun guiItem(): ItemStack {
