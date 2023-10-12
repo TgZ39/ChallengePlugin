@@ -72,7 +72,7 @@ object RandomEffectChallenge : DefaultChallenge {
         )
         lore.add(
             Component.text(
-                "Level: ${minLevel+1} - ${maxLevel+1}"
+                "Level: ${minLevel + 1} - ${maxLevel + 1}"
             ).color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)
         )
 
