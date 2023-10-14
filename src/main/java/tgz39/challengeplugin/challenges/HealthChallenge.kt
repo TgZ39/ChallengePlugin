@@ -8,10 +8,10 @@ import org.bukkit.Material
 import org.bukkit.attribute.Attribute
 import org.bukkit.inventory.ItemStack
 import tgz39.challengeplugin.Main
-import tgz39.challengeplugin.utils.DefaultChallenge
+import tgz39.challengeplugin.utils.Challenge
 
 
-object HealthChallenge : DefaultChallenge {
+object HealthChallenge : Challenge {
 
     override var isActive = false
     var health = 6.0
@@ -21,7 +21,7 @@ object HealthChallenge : DefaultChallenge {
         updateHealth()
     }
 
-    fun updateConfig() {
+    override fun updateConfig() {
         val config = Main.instance.config
         isActive = config.getBoolean("challenges.health-challenge.active")
         health = config.getInt("challenges.health-challenge.health").toDouble()

@@ -10,9 +10,9 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
 import tgz39.challengeplugin.Main
 import tgz39.challengeplugin.timer.Timer
-import tgz39.challengeplugin.utils.DefaultChallenge
+import tgz39.challengeplugin.utils.Challenge
 
-object LavaChallenge : DefaultChallenge {
+object LavaChallenge : Challenge {
 
     override var isActive = false
     var lavaSpawnHeight = 10
@@ -22,7 +22,7 @@ object LavaChallenge : DefaultChallenge {
         run()
     }
 
-    fun updateConfig() {
+    override fun updateConfig() {
         val config = Main.instance.config
         isActive = config.getBoolean("challenges.lava-challenge.active")
         lavaSpawnHeight = config.getInt("challenges.lava-challenge.lava-spawn-height")

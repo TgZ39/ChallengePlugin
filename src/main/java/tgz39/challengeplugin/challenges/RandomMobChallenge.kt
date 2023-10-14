@@ -11,10 +11,10 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
 import tgz39.challengeplugin.Main
 import tgz39.challengeplugin.timer.Timer
-import tgz39.challengeplugin.utils.DefaultChallenge
+import tgz39.challengeplugin.utils.Challenge
 import java.util.*
 
-object RandomMobChallenge : DefaultChallenge {
+object RandomMobChallenge : Challenge {
 
     override var isActive = false
     var time = 0
@@ -28,7 +28,7 @@ object RandomMobChallenge : DefaultChallenge {
         run()
     }
 
-    fun updateConfig() {
+    override fun updateConfig() {
         val config = Main.instance.config
         isActive = config.getBoolean("challenges.random-mob-challenge.active")
         minDelay = config.getInt("challenges.random-mob-challenge.min-delay")

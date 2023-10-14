@@ -12,10 +12,10 @@ import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 import tgz39.challengeplugin.Main
 import tgz39.challengeplugin.timer.Timer
-import tgz39.challengeplugin.utils.DefaultChallenge
+import tgz39.challengeplugin.utils.Challenge
 import java.util.*
 
-object RandomEffectChallenge : DefaultChallenge {
+object RandomEffectChallenge : Challenge {
 
     override var isActive = false
     var time: Int = 0
@@ -33,7 +33,7 @@ object RandomEffectChallenge : DefaultChallenge {
         run()
     }
 
-    fun updateConfig() {
+    override fun updateConfig() {
         val config = Main.instance.config
         isActive = config.getBoolean("challenges.random-effect-challenge.active")
         minDelay = config.getInt("challenges.random-effect-challenge.min-delay")
