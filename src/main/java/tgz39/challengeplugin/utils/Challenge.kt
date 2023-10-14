@@ -2,9 +2,10 @@ package tgz39.challengeplugin.utils
 
 import org.bukkit.inventory.ItemStack
 
-interface DefaultChallenge {
+interface Challenge {
 
-    fun guiItem(): ItemStack
     var isActive: Boolean
+    fun updateConfig()
+    fun guiItem(): ItemStack
 
 }
