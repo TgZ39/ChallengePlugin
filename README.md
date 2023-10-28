@@ -1,5 +1,6 @@
 # ChallengePlugin
 Minecraft Plugin for 1.20+ with Challenges
+![GitHub all releases](https://img.shields.io/github/downloads/TgZ39/ChallengePlugin/total?style=for-the-badge&color=green)
 
 ## Features
 - Random Mob Challenge
