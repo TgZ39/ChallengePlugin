@@ -231,29 +231,21 @@ class SettingsCommand : CommandExecutor, TabCompleter {
 
                         LavaChallenge.isActive = true
                         sendMessage("Lava Challenge has been enabled.", NamedTextColor.GREEN)
-                        config.set("challenges.lava-challenge.active", true)
-                        Main.instance.saveConfig()
-                        LavaChallenge.updateConfig()
 
                     } else if (args[2].lowercase() == "false") {
 
                         LavaChallenge.isActive = false
                         sendMessage("Lava Challenge has been disabled.", NamedTextColor.RED)
-                        config.set("challenges.lava-challenge.active", false)
-                        Main.instance.saveConfig()
-                        LavaChallenge.updateConfig()
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
                     }
                 } else if (args[1].lowercase() == "lava-spawn-height") {
                     if (isNumber(args[2])) {
-                        config.set("challenges.lava-challenge.lava-spawn-height", args[2].toInt())
+                        LavaChallenge.lavaSpawnHeight = args[2].toInt()
                         sendMessage(
                             "Lava Challenge lava spawn height changed to " + args[2] + ".",
                             NamedTextColor.WHITE
                         )
-                        Main.instance.saveConfig()
-                        LavaChallenge.updateConfig()
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
                     }

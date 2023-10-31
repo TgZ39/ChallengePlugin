@@ -65,14 +65,10 @@ object SettingsGUI : Listener {
             if (!LavaChallenge.isActive) {
                 LavaChallenge.isActive = true
                 sendChallengeMessage("Lava Challenge has been enabled.", NamedTextColor.GREEN)
-                config.set("challenges.lava-challenge.active", true)
             } else {
                 LavaChallenge.isActive = false
                 sendChallengeMessage("Lava Challenge has been disabled.", NamedTextColor.RED)
-                config.set("challenges.lava-challenge.active", false)
             }
-            Main.instance.saveConfig()
-            LavaChallenge.updateConfig()
         }
 
         if (item?.displayName() == RandomMobChallenge.guiItem().displayName()) {
