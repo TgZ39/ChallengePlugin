@@ -22,7 +22,6 @@ object RandomEffectChallenge : Challenge {
             field = value
             Main.instance.config.set("challenges.random-effect-challenge.active", value)
             Main.instance.saveConfig()
-            Main.instance.logger.info("verändert")
         }
     var time: Int = 0
     var delay: Int = 0
