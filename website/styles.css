@@ -1,0 +1,103 @@
+@font-face {
+    font-family: Poppins-Medium;
+    src: url(Poppins/Poppins-Medium.ttf);
+}
+
+@font-face {
+    font-family: Poppins-ExtraBold;
+    src: url(Poppins/Poppins-ExtraBold.ttf);
+}
+
+@font-face {
+    font-family: Poppins-Bold;
+    src: url(Poppins/Poppins-Bold.ttf);
+}
+
+:root {
+    --text-color: #EFFBFF;
+    --background-color: #232323;
+    --primary-color: #A4D8FF;
+    --secondary-color: #2D49B6;
+    --accent-color: #495ADF;
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+* {
+    font-family: Poppins-Medium;
+    color: var(--text-color)
+}
+
+hr {
+    color: var(--primary-color);
+    height: 2px;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 2px;
+    opacity: 0.5;
+}
+
+h1 {
+    font-family: Poppins-Extrabold;
+    text-align: center;
+    margin: 0px;
+    font-size: 70px;
+}
+
+h2 {
+    font-family: Poppins-Bold;
+    text-align: center;
+    margin: 0px;
+    font-size: 50px;
+}
+
+
+p {
+    text-align: center;
+    margin: 0px;
+    font-size: 30px;
+}
+
+li {
+    margin: 5px;
+    font-size: 20px;
+}
+
+
+.title-container {
+    background-color: var(--secondary-color);
+    margin: 10px;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.container {
+    display: flex;
+    background-color: var(--secondary-color);
+    margin: 10px;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.sub-container {
+    display: inline-block;
+    flex-grow: 1;
+    background-color: var(--accent-color);
+    margin: 10px;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.code-block {
+    display: inline;
+    background-color: var(--secondary-color);
+    font-family: monospace;
+    font-size: 20px;
+    padding: 3px;
+    border-radius: 7px;
+}
