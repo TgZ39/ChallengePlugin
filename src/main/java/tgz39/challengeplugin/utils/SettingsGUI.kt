@@ -75,13 +75,10 @@ object SettingsGUI : Listener {
             if (!RandomMobChallenge.isActive) {
                 RandomMobChallenge.isActive = true
                 sendChallengeMessage("Random Mob Challenge has been enabled.", NamedTextColor.GREEN)
-                config.set("challenges.random-mob-challenge.active", true)
             } else {
                 RandomMobChallenge.isActive = false
                 sendChallengeMessage("Random Mob Challenge has been disabled.", NamedTextColor.RED)
-                config.set("challenges.random-mob-challenge.active", false)
             }
-            Main.instance.saveConfig()
         }
 
         if (item?.displayName() == RandomEffectChallenge.guiItem().displayName()) {

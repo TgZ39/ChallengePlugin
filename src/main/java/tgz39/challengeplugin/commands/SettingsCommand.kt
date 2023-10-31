@@ -180,17 +180,11 @@ class SettingsCommand : CommandExecutor, TabCompleter {
 
                         RandomMobChallenge.isActive = true
                         sendMessage("Random Mob Challenge has been enabled.", NamedTextColor.GREEN)
-                        config.set("challenges.random-mob-challenge.active", true)
-                        Main.instance.saveConfig()
-                        RandomMobChallenge.updateConfig()
 
                     } else if (args[2].lowercase() == "false") {
 
                         RandomMobChallenge.isActive = false
                         sendMessage("Random Mob Challenge has been disabled.", NamedTextColor.RED)
-                        config.set("challenges.random-mob-challenge.active", false)
-                        Main.instance.saveConfig()
-                        RandomMobChallenge.updateConfig()
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
                     }
@@ -200,10 +194,8 @@ class SettingsCommand : CommandExecutor, TabCompleter {
                             sendUsageError("Min Delay cannot be larger that Max Delay.")
                             return false
                         }
-                        config.set("challenges.random-mob-challenge.min-delay", args[2].toInt())
+                        RandomMobChallenge.minDelay = args[2].toInt()
                         sendMessage("Random Mob Challenge min delay changed to " + args[2] + ".", NamedTextColor.WHITE)
-                        Main.instance.saveConfig()
-                        RandomMobChallenge.updateConfig()
                         RandomMobChallenge.delay = RandomMobChallenge.nextDelay()
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
@@ -214,10 +206,8 @@ class SettingsCommand : CommandExecutor, TabCompleter {
                             sendUsageError("Max Delay cannot be smaller that Min Delay.")
                             return false
                         }
-                        config.set("challenges.random-mob-challenge.max-delay", args[2].toInt())
+                        RandomMobChallenge.maxDelay = args[2].toInt()
                         sendMessage("Random Mob Challenge max delay changed to " + args[2] + ".", NamedTextColor.WHITE)
-                        Main.instance.saveConfig()
-                        RandomMobChallenge.updateConfig()
                         RandomMobChallenge.delay = RandomMobChallenge.nextDelay()
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
