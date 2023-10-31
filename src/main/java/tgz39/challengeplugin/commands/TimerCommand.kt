@@ -7,7 +7,6 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
-import tgz39.challengeplugin.Main
 import tgz39.challengeplugin.challenges.HealthChallenge
 import tgz39.challengeplugin.challenges.RandomEffectChallenge
 import tgz39.challengeplugin.challenges.RandomMobChallenge

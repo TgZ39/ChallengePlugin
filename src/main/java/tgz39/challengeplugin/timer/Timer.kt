@@ -16,7 +16,8 @@ object Timer {
         set(value) {
             field = value
             Main.instance.config.set("timer.time", value)
-            Main.instance.saveConfig()}
+            Main.instance.saveConfig()
+        }
     var ticks = 0
     var saveTimeBetweenSessions = true
         set(value) {

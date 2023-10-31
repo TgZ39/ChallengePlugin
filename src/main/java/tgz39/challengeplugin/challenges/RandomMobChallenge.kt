@@ -34,7 +34,8 @@ object RandomMobChallenge : Challenge {
         set(value) {
             field = value
             Main.instance.config.set("challenges.random-mob-challenge.max-delay", value)
-            Main.instance.saveConfig()}
+            Main.instance.saveConfig()
+        }
 
     init {
         val config = Main.instance.config

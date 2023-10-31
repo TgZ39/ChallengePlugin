@@ -9,7 +9,6 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
-import tgz39.challengeplugin.Main
 import tgz39.challengeplugin.challenges.*
 import tgz39.challengeplugin.utils.SettingsGUI
 import tgz39.challengeplugin.utils.isNumber
@@ -37,8 +36,6 @@ class SettingsCommand : CommandExecutor, TabCompleter {
         fun sendUsageError(text: String) {
             sender.sendMessage(Component.text(text).color(NamedTextColor.RED))
         }
-
-        val config = Main.instance.config
 
         if (!sender.hasPermission("challengeplugin.commands.settings")) {
             sender.sendMessage(Component.text("You are not allowed to use this command.").color(NamedTextColor.RED))

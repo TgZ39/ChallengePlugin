@@ -11,7 +11,6 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryDragEvent
-import tgz39.challengeplugin.Main
 import tgz39.challengeplugin.challenges.*
 
 object SettingsGUI : Listener {
@@ -58,7 +57,6 @@ object SettingsGUI : Listener {
 
         val player = event.whoClicked
         val item = event.currentItem
-        val config = Main.instance.config
         player.world.playSound(player.location, Sound.BLOCK_DISPENSER_DISPENSE, 10f, 1f)
 
         if (item?.displayName() == LavaChallenge.guiItem().displayName()) {
