@@ -15,17 +15,25 @@ import tgz39.challengeplugin.utils.Challenge
 object LavaChallenge : Challenge {
 
     override var isActive = false
+        set(value) {
+            field = value
+            Main.instance.config.set("challenges.lava-challenge.active", value)
+            Main.instance.saveConfig()
+        }
     var lavaSpawnHeight = 10
+        set(value) {
+            field = value
+            Main.instance.config.set("challenges.lava-challenge.lava-spawn-height", value)
+            Main.instance.saveConfig()
+        }
 
     init {
-        updateConfig()
-        run()
-    }
 
-    override fun updateConfig() {
         val config = Main.instance.config
         isActive = config.getBoolean("challenges.lava-challenge.active")
         lavaSpawnHeight = config.getInt("challenges.lava-challenge.lava-spawn-height")
+
+        run()
     }
 
     override fun guiItem(): ItemStack {

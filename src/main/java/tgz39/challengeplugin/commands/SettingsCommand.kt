@@ -9,7 +9,6 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
-import tgz39.challengeplugin.Main
 import tgz39.challengeplugin.challenges.*
 import tgz39.challengeplugin.utils.SettingsGUI
 import tgz39.challengeplugin.utils.isNumber
@@ -37,8 +36,6 @@ class SettingsCommand : CommandExecutor, TabCompleter {
         fun sendUsageError(text: String) {
             sender.sendMessage(Component.text(text).color(NamedTextColor.RED))
         }
-
-        val config = Main.instance.config
 
         if (!sender.hasPermission("challengeplugin.commands.settings")) {
             sender.sendMessage(Component.text("You are not allowed to use this command.").color(NamedTextColor.RED))
@@ -75,33 +72,26 @@ class SettingsCommand : CommandExecutor, TabCompleter {
 
                         RandomEffectChallenge.isActive = true
                         sendMessage("Random Effect Challenge has been enabled.", NamedTextColor.GREEN)
-                        config.set("challenges.random-effect-challenge.active", true)
-                        Main.instance.saveConfig()
-                        RandomEffectChallenge.updateConfig()
 
                     } else if (args[2].lowercase() == "false") {
 
                         RandomEffectChallenge.isActive = false
                         sendMessage("Random Effect Challenge has been disabled.", NamedTextColor.RED)
-                        config.set("challenges.random-effect-challenge.active", false)
-                        Main.instance.saveConfig()
-                        RandomEffectChallenge.updateConfig()
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
                     }
+
                 } else if (args[1].lowercase() == "min-delay") {
                     if (isNumber(args[2])) {
                         if (args[2].toInt() >= RandomEffectChallenge.maxDelay) {
                             sendUsageError("Min Delay cannot be larger that Max Delay.")
                             return false
                         }
-                        config.set("challenges.random-effect-challenge.min-delay", args[2].toInt())
+                        RandomEffectChallenge.minDelay = args[2].toInt()
                         sendMessage(
                             "Random Effect Challenge min delay changed to " + args[2] + ".",
                             NamedTextColor.WHITE
                         )
-                        Main.instance.saveConfig()
-                        RandomEffectChallenge.updateConfig()
                         RandomEffectChallenge.delay = RandomEffectChallenge.nextDelay()
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
@@ -112,13 +102,11 @@ class SettingsCommand : CommandExecutor, TabCompleter {
                             sendUsageError("Max Delay cannot be smaller that Min Delay.")
                             return false
                         }
-                        config.set("challenges.random-effect-challenge.max-delay", args[2].toInt())
+                        RandomEffectChallenge.maxDelay = args[2].toInt()
                         sendMessage(
                             "Random Effect Challenge max delay changed to " + args[2] + ".",
                             NamedTextColor.WHITE
                         )
-                        Main.instance.saveConfig()
-                        RandomEffectChallenge.updateConfig()
                         RandomEffectChallenge.delay = RandomEffectChallenge.nextDelay()
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
@@ -129,13 +117,11 @@ class SettingsCommand : CommandExecutor, TabCompleter {
                             sendUsageError("Min Level cannot be larger that Max Level.")
                             return false
                         }
-                        config.set("challenges.random-effect-challenge.min-level", args[2].toInt())
+                        RandomEffectChallenge.minLevel = args[2].toInt()
                         sendMessage(
                             "Random Effect Challenge min level changed to " + args[2] + ".",
                             NamedTextColor.WHITE
                         )
-                        Main.instance.saveConfig()
-                        RandomEffectChallenge.updateConfig()
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
                     }
@@ -145,50 +131,40 @@ class SettingsCommand : CommandExecutor, TabCompleter {
                             sendUsageError("Max Level cannot be larger that Min Level.")
                             return false
                         }
-                        config.set("challenges.random-effect-challenge.max-level", args[2].toInt())
+                        RandomEffectChallenge.maxLevel = args[2].toInt()
                         sendMessage(
                             "Random Effect Challenge max level changed to " + args[2] + ".",
                             NamedTextColor.WHITE
                         )
-                        Main.instance.saveConfig()
-                        RandomEffectChallenge.updateConfig()
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
                     }
                 } else if (args[1].lowercase() == "infinite-effect-duration") {
                     if (args[2].lowercase() == "true") {
 
-                        RandomEffectChallenge.isActive = true
+                        RandomEffectChallenge.infiniteEffectDuration = true
                         sendMessage(
                             "Random Effect Challenge infinite effect duration has been enabled.",
                             NamedTextColor.GREEN
                         )
-                        config.set("challenges.random-effect-challenge.infinite-effect-duration", true)
-                        Main.instance.saveConfig()
-                        RandomEffectChallenge.updateConfig()
 
                     } else if (args[2].lowercase() == "false") {
 
-                        RandomEffectChallenge.isActive = false
+                        RandomEffectChallenge.infiniteEffectDuration = false
                         sendMessage(
                             "Random Effect Challenge infinite effect duration has been disabled.",
                             NamedTextColor.RED
                         )
-                        config.set("challenges.random-effect-challenge.infinite-effect-duration", false)
-                        Main.instance.saveConfig()
-                        RandomEffectChallenge.updateConfig()
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
                     }
                 } else if (args[1].lowercase() == "effect-duration") {
                     if (isNumber(args[2])) {
-                        config.set("challenges.random-effect-challenge.effect-duration", args[2].toInt())
+                        RandomEffectChallenge.effectDuration = args[2].toInt()
                         sendMessage(
                             "Random Effect Challenge effect duration changed to " + args[2] + ".",
                             NamedTextColor.WHITE
                         )
-                        Main.instance.saveConfig()
-                        RandomEffectChallenge.updateConfig()
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
                     }
@@ -201,17 +177,11 @@ class SettingsCommand : CommandExecutor, TabCompleter {
 
                         RandomMobChallenge.isActive = true
                         sendMessage("Random Mob Challenge has been enabled.", NamedTextColor.GREEN)
-                        config.set("challenges.random-mob-challenge.active", true)
-                        Main.instance.saveConfig()
-                        RandomMobChallenge.updateConfig()
 
                     } else if (args[2].lowercase() == "false") {
 
                         RandomMobChallenge.isActive = false
                         sendMessage("Random Mob Challenge has been disabled.", NamedTextColor.RED)
-                        config.set("challenges.random-mob-challenge.active", false)
-                        Main.instance.saveConfig()
-                        RandomMobChallenge.updateConfig()
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
                     }
@@ -221,10 +191,8 @@ class SettingsCommand : CommandExecutor, TabCompleter {
                             sendUsageError("Min Delay cannot be larger that Max Delay.")
                             return false
                         }
-                        config.set("challenges.random-mob-challenge.min-delay", args[2].toInt())
+                        RandomMobChallenge.minDelay = args[2].toInt()
                         sendMessage("Random Mob Challenge min delay changed to " + args[2] + ".", NamedTextColor.WHITE)
-                        Main.instance.saveConfig()
-                        RandomMobChallenge.updateConfig()
                         RandomMobChallenge.delay = RandomMobChallenge.nextDelay()
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
@@ -235,10 +203,8 @@ class SettingsCommand : CommandExecutor, TabCompleter {
                             sendUsageError("Max Delay cannot be smaller that Min Delay.")
                             return false
                         }
-                        config.set("challenges.random-mob-challenge.max-delay", args[2].toInt())
+                        RandomMobChallenge.maxDelay = args[2].toInt()
                         sendMessage("Random Mob Challenge max delay changed to " + args[2] + ".", NamedTextColor.WHITE)
-                        Main.instance.saveConfig()
-                        RandomMobChallenge.updateConfig()
                         RandomMobChallenge.delay = RandomMobChallenge.nextDelay()
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
@@ -252,29 +218,21 @@ class SettingsCommand : CommandExecutor, TabCompleter {
 
                         LavaChallenge.isActive = true
                         sendMessage("Lava Challenge has been enabled.", NamedTextColor.GREEN)
-                        config.set("challenges.lava-challenge.active", true)
-                        Main.instance.saveConfig()
-                        LavaChallenge.updateConfig()
 
                     } else if (args[2].lowercase() == "false") {
 
                         LavaChallenge.isActive = false
                         sendMessage("Lava Challenge has been disabled.", NamedTextColor.RED)
-                        config.set("challenges.lava-challenge.active", false)
-                        Main.instance.saveConfig()
-                        LavaChallenge.updateConfig()
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
                     }
                 } else if (args[1].lowercase() == "lava-spawn-height") {
                     if (isNumber(args[2])) {
-                        config.set("challenges.lava-challenge.lava-spawn-height", args[2].toInt())
+                        LavaChallenge.lavaSpawnHeight = args[2].toInt()
                         sendMessage(
                             "Lava Challenge lava spawn height changed to " + args[2] + ".",
                             NamedTextColor.WHITE
                         )
-                        Main.instance.saveConfig()
-                        LavaChallenge.updateConfig()
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
                     }
@@ -285,29 +243,24 @@ class SettingsCommand : CommandExecutor, TabCompleter {
 
                         HealthChallenge.isActive = true
                         sendMessage("Health Challenge has been enabled.", NamedTextColor.GREEN)
-                        config.set("challenges.health-challenge.active", true)
-                        Main.instance.saveConfig()
-                        HealthChallenge.updateConfig()
                         HealthChallenge.updateHealth()
 
                     } else if (args[2].lowercase() == "false") {
 
                         HealthChallenge.isActive = false
                         sendMessage("Health Challenge has been disabled.", NamedTextColor.RED)
-                        config.set("challenges.health-challenge.active", false)
-                        Main.instance.saveConfig()
-                        HealthChallenge.updateConfig()
                         HealthChallenge.updateHealth()
+
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
                     }
                 } else if (args[1].lowercase() == "health") {
                     if (isNumber(args[2])) {
-                        config.set("challenges.health-challenge.health", args[2].toInt())
+
+                        HealthChallenge.health = args[2].toDouble()
                         sendMessage("Health Challenge health changed to " + args[2], NamedTextColor.WHITE)
-                        Main.instance.saveConfig()
-                        HealthChallenge.updateConfig()
                         HealthChallenge.updateHealth()
+
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
                     }
@@ -321,17 +274,11 @@ class SettingsCommand : CommandExecutor, TabCompleter {
 
                         RandomBlockDropChallenge.isActive = true
                         sendMessage("Random Block Drop Challenge has been enabled.", NamedTextColor.GREEN)
-                        config.set("challenges.random-block-drop-challenge.active", true)
-                        Main.instance.saveConfig()
-                        RandomBlockDropChallenge.updateConfig()
 
                     } else if (args[2].lowercase() == "false") {
 
                         RandomBlockDropChallenge.isActive = false
                         sendMessage("Random Block Drop Challenge has been disabled.", NamedTextColor.RED)
-                        config.set("challenges.random-block-drop-challenge.active", false)
-                        Main.instance.saveConfig()
-                        RandomBlockDropChallenge.updateConfig()
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
                     }

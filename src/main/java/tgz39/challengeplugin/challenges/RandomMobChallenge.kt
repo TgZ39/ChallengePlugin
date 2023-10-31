@@ -17,22 +17,34 @@ import java.util.*
 object RandomMobChallenge : Challenge {
 
     override var isActive = false
+        set(value) {
+            field = value
+            Main.instance.config.set("challenges.random-mob-challenge.active", value)
+            Main.instance.saveConfig()
+        }
     var time = 0
     var delay = 0
     var minDelay = 60
+        set(value) {
+            field = value
+            Main.instance.config.set("challenges.random-mob-challenge.min-delay", value)
+            Main.instance.saveConfig()
+        }
     var maxDelay = 120
+        set(value) {
+            field = value
+            Main.instance.config.set("challenges.random-mob-challenge.max-delay", value)
+            Main.instance.saveConfig()
+        }
 
     init {
-        updateConfig()
-        delay = nextDelay()
-        run()
-    }
-
-    override fun updateConfig() {
         val config = Main.instance.config
         isActive = config.getBoolean("challenges.random-mob-challenge.active")
         minDelay = config.getInt("challenges.random-mob-challenge.min-delay")
         maxDelay = config.getInt("challenges.random-mob-challenge.max-delay")
+
+        delay = nextDelay()
+        run()
     }
 
     fun getRandomMob(): EntityType {

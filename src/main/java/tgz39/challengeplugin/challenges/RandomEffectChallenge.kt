@@ -18,22 +18,51 @@ import java.util.*
 object RandomEffectChallenge : Challenge {
 
     override var isActive = false
+        set(value) {
+            field = value
+            Main.instance.config.set("challenges.random-effect-challenge.active", value)
+            Main.instance.saveConfig()
+        }
     var time: Int = 0
     var delay: Int = 0
     var minDelay: Int = 120
+        set(value) {
+            field = value
+            Main.instance.config.set("challenges.random-effect-challenge.min-delay", value)
+            Main.instance.saveConfig()
+        }
     var maxDelay: Int = 180
+        set(value) {
+            field = value
+            Main.instance.config.set("challenges.random-effect-challenge.max-delay", value)
+            Main.instance.saveConfig()
+        }
     var minLevel: Int = 0
+        set(value) {
+            field = value
+            Main.instance.config.set("challenges.random-effect-challenge.min-level", value)
+            Main.instance.saveConfig()
+        }
     var maxLevel: Int = 9
+        set(value) {
+            field = value
+            Main.instance.config.set("challenges.random-effect-challenge.max-level", value)
+            Main.instance.saveConfig()
+        }
     var infiniteEffectDuration: Boolean = false
+        set(value) {
+            field = value
+            Main.instance.config.set("challenges.random-effect-challenge.infinite-effect-duration", value)
+            Main.instance.saveConfig()
+        }
     var effectDuration: Int = 180
+        set(value) {
+            field = value
+            Main.instance.config.set("challenges.random-effect-challenge.effect-duration", value)
+            Main.instance.saveConfig()
+        }
 
     init {
-        updateConfig()
-        delay = nextDelay()
-        run()
-    }
-
-    override fun updateConfig() {
         val config = Main.instance.config
         isActive = config.getBoolean("challenges.random-effect-challenge.active")
         minDelay = config.getInt("challenges.random-effect-challenge.min-delay")
@@ -42,6 +71,9 @@ object RandomEffectChallenge : Challenge {
         maxLevel = config.getInt("challenges.random-effect-challenge.max-level")
         infiniteEffectDuration = config.getBoolean("challenges.random-effect-challenge.infinite-effect-duration")
         effectDuration = config.getInt("challenges.random-effect-challenge.effect-duration")
+
+        delay = nextDelay()
+        run()
     }
 
     override fun guiItem(): ItemStack {

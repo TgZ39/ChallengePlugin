@@ -11,7 +11,6 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryDragEvent
-import tgz39.challengeplugin.Main
 import tgz39.challengeplugin.challenges.*
 
 object SettingsGUI : Listener {
@@ -58,78 +57,57 @@ object SettingsGUI : Listener {
 
         val player = event.whoClicked
         val item = event.currentItem
-        val config = Main.instance.config
         player.world.playSound(player.location, Sound.BLOCK_DISPENSER_DISPENSE, 10f, 1f)
 
         if (item?.displayName() == LavaChallenge.guiItem().displayName()) {
             if (!LavaChallenge.isActive) {
                 LavaChallenge.isActive = true
                 sendChallengeMessage("Lava Challenge has been enabled.", NamedTextColor.GREEN)
-                config.set("challenges.lava-challenge.active", true)
             } else {
                 LavaChallenge.isActive = false
                 sendChallengeMessage("Lava Challenge has been disabled.", NamedTextColor.RED)
-                config.set("challenges.lava-challenge.active", false)
             }
-            Main.instance.saveConfig()
-            LavaChallenge.updateConfig()
         }
 
         if (item?.displayName() == RandomMobChallenge.guiItem().displayName()) {
             if (!RandomMobChallenge.isActive) {
                 RandomMobChallenge.isActive = true
                 sendChallengeMessage("Random Mob Challenge has been enabled.", NamedTextColor.GREEN)
-                config.set("challenges.random-mob-challenge.active", true)
             } else {
                 RandomMobChallenge.isActive = false
                 sendChallengeMessage("Random Mob Challenge has been disabled.", NamedTextColor.RED)
-                config.set("challenges.random-mob-challenge.active", false)
             }
-            Main.instance.saveConfig()
         }
 
         if (item?.displayName() == RandomEffectChallenge.guiItem().displayName()) {
             if (!RandomEffectChallenge.isActive) {
                 RandomEffectChallenge.isActive = true
                 sendChallengeMessage("Random Effect Challenge has been enabled.", NamedTextColor.GREEN)
-                config.set("challenges.random-effect-challenge.active", true)
             } else {
                 RandomEffectChallenge.isActive = false
                 sendChallengeMessage("Random Effect Challenge has been disabled.", NamedTextColor.RED)
-                config.set("challenges.random-effect-challenge.active", false)
             }
-            Main.instance.saveConfig()
-            RandomEffectChallenge.updateConfig()
         }
 
         if (item?.displayName() == HealthChallenge.guiItem().displayName()) {
             if (!HealthChallenge.isActive) {
                 HealthChallenge.isActive = true
                 sendChallengeMessage("Health Challenge has been enabled.", NamedTextColor.GREEN)
-                config.set("challenges.health-challenge.active", true)
-                HealthChallenge.updateConfig()
             } else {
                 HealthChallenge.isActive = false
                 sendChallengeMessage("Health Challenge has been disabled.", NamedTextColor.RED)
-                config.set("challenges.health-challenge.active", false)
-                HealthChallenge.updateConfig()
             }
-            Main.instance.saveConfig()
-            HealthChallenge.updateHealth()
         }
 
         if (item?.displayName() == RandomBlockDropChallenge.guiItem().displayName()) {
             if (!RandomBlockDropChallenge.isActive) {
                 RandomBlockDropChallenge.isActive = true
                 sendChallengeMessage("Random Block Drop Challenge has been enabled.", NamedTextColor.GREEN)
-                config.set("challenges.random-block-drop-challenge.active", true)
             } else {
                 RandomBlockDropChallenge.isActive = false
                 sendChallengeMessage("Random Block Drop Challenge has been disabled.", NamedTextColor.RED)
-                config.set("challenges.random-block-drop-challenge.active", false)
             }
-            Main.instance.saveConfig()
-            RandomBlockDropChallenge.updateConfig()
+
         }
 
         event.isCancelled = true

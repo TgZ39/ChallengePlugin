@@ -7,7 +7,6 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
-import tgz39.challengeplugin.Main
 import tgz39.challengeplugin.challenges.HealthChallenge
 import tgz39.challengeplugin.challenges.RandomEffectChallenge
 import tgz39.challengeplugin.challenges.RandomMobChallenge
@@ -64,10 +63,6 @@ class TimerCommand : CommandExecutor, TabCompleter {
                                     .color(NamedTextColor.WHITE)
                             )
                     )
-                    if (Main.instance.config.getBoolean("timer.save-time-between-sessions")) {
-                        Main.instance.config.set("timer.time", Timer.time)
-                        Main.instance.saveConfig()
-                    }
                     HealthChallenge.updateHealth()
                 }
 
@@ -86,10 +81,6 @@ class TimerCommand : CommandExecutor, TabCompleter {
                                         .color(NamedTextColor.WHITE)
                                 )
                         )
-                        if (Main.instance.config.getBoolean("timer.save-time-between-sessions")) {
-                            Main.instance.config.set("timer.time", Timer.time)
-                            Main.instance.saveConfig()
-                        }
 
                     } catch (e: NumberFormatException) {
                         sender.sendMessage(Component.text("Usage: /timer set <SECONDS>").color(NamedTextColor.RED))
