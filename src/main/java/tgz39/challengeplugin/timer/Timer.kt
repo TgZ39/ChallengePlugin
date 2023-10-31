@@ -11,24 +11,27 @@ import tgz39.challengeplugin.Main
 
 object Timer {
 
-    //val timer = Main.timer
-
     var isActive = false
     var time = 0
+        set(value) {
+            field = value
+            Main.instance.config.set("timer.time", value)
+            Main.instance.saveConfig()}
     var ticks = 0
     var saveTimeBetweenSessions = true
+        set(value) {
+            field = value
+            Main.instance.config.set("timer.save-time-between-sessions", value)
+            Main.instance.saveConfig()
+        }
 
     init {
-        updateConfig()
-        run()
-    }
-
-    private fun updateConfig() {
-
         val config = Main.instance.config
 
-        time = if (config.getBoolean("timer.save-time-between-sessions")) config.getInt("timer.time") else 0
         saveTimeBetweenSessions = config.getBoolean("timer.save-time-between-sessions")
+        time = if (saveTimeBetweenSessions) config.getInt("timer.time") else 0
+
+        run()
     }
 
     fun getFormated(): String {
@@ -77,10 +80,6 @@ object Timer {
                     if (ticks >= 20) {
                         time++
                         ticks = 0
-                        if (saveTimeBetweenSessions) {
-                            Main.instance.config.set("timer.time", time)
-                            Main.instance.saveConfig()
-                        }
                     }
                 } else {
                     for (player in Bukkit.getServer().onlinePlayers) {

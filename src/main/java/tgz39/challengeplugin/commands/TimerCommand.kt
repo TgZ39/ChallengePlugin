@@ -64,10 +64,6 @@ class TimerCommand : CommandExecutor, TabCompleter {
                                     .color(NamedTextColor.WHITE)
                             )
                     )
-                    if (Main.instance.config.getBoolean("timer.save-time-between-sessions")) {
-                        Main.instance.config.set("timer.time", Timer.time)
-                        Main.instance.saveConfig()
-                    }
                     HealthChallenge.updateHealth()
                 }
 
@@ -86,10 +82,6 @@ class TimerCommand : CommandExecutor, TabCompleter {
                                         .color(NamedTextColor.WHITE)
                                 )
                         )
-                        if (Main.instance.config.getBoolean("timer.save-time-between-sessions")) {
-                            Main.instance.config.set("timer.time", Timer.time)
-                            Main.instance.saveConfig()
-                        }
 
                     } catch (e: NumberFormatException) {
                         sender.sendMessage(Component.text("Usage: /timer set <SECONDS>").color(NamedTextColor.RED))
