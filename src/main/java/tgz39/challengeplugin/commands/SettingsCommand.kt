@@ -287,17 +287,11 @@ class SettingsCommand : CommandExecutor, TabCompleter {
 
                         RandomBlockDropChallenge.isActive = true
                         sendMessage("Random Block Drop Challenge has been enabled.", NamedTextColor.GREEN)
-                        config.set("challenges.random-block-drop-challenge.active", true)
-                        Main.instance.saveConfig()
-                        RandomBlockDropChallenge.updateConfig()
 
                     } else if (args[2].lowercase() == "false") {
 
                         RandomBlockDropChallenge.isActive = false
                         sendMessage("Random Block Drop Challenge has been disabled.", NamedTextColor.RED)
-                        config.set("challenges.random-block-drop-challenge.active", false)
-                        Main.instance.saveConfig()
-                        RandomBlockDropChallenge.updateConfig()
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
                     }

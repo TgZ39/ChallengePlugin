@@ -15,16 +15,19 @@ import tgz39.challengeplugin.utils.Challenge
 object RandomBlockDropChallenge : Listener, Challenge {
 
     override var isActive = false
+        set(value) {
+            field = value
+            Main.instance.config.set("challenges.random-block-drop-challenge.active", value)
+            Main.instance.saveConfig()
+        }
+
     var blockDrops: MutableMap<Material, Material> = mutableMapOf()
 
     init {
-        updateConfig()
-        generateRandomDrops()
-    }
-
-    fun updateConfig() {
         val config = Main.instance.config
         isActive = config.getBoolean("challenges.random-block-drop-challenge.active")
+
+        generateRandomDrops()
     }
 
     override fun guiItem(): ItemStack {

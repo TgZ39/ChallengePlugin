@@ -108,14 +108,11 @@ object SettingsGUI : Listener {
             if (!RandomBlockDropChallenge.isActive) {
                 RandomBlockDropChallenge.isActive = true
                 sendChallengeMessage("Random Block Drop Challenge has been enabled.", NamedTextColor.GREEN)
-                config.set("challenges.random-block-drop-challenge.active", true)
             } else {
                 RandomBlockDropChallenge.isActive = false
                 sendChallengeMessage("Random Block Drop Challenge has been disabled.", NamedTextColor.RED)
-                config.set("challenges.random-block-drop-challenge.active", false)
             }
-            Main.instance.saveConfig()
-            RandomBlockDropChallenge.updateConfig()
+
         }
 
         event.isCancelled = true
