@@ -264,29 +264,24 @@ class SettingsCommand : CommandExecutor, TabCompleter {
 
                         HealthChallenge.isActive = true
                         sendMessage("Health Challenge has been enabled.", NamedTextColor.GREEN)
-                        config.set("challenges.health-challenge.active", true)
-                        Main.instance.saveConfig()
-                        HealthChallenge.updateConfig()
                         HealthChallenge.updateHealth()
 
                     } else if (args[2].lowercase() == "false") {
 
                         HealthChallenge.isActive = false
                         sendMessage("Health Challenge has been disabled.", NamedTextColor.RED)
-                        config.set("challenges.health-challenge.active", false)
-                        Main.instance.saveConfig()
-                        HealthChallenge.updateConfig()
                         HealthChallenge.updateHealth()
+
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
                     }
                 } else if (args[1].lowercase() == "health") {
                     if (isNumber(args[2])) {
-                        config.set("challenges.health-challenge.health", args[2].toInt())
+
+                        HealthChallenge.health = args[2].toDouble()
                         sendMessage("Health Challenge health changed to " + args[2], NamedTextColor.WHITE)
-                        Main.instance.saveConfig()
-                        HealthChallenge.updateConfig()
                         HealthChallenge.updateHealth()
+
                     } else {
                         sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
                     }

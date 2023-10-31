@@ -102,16 +102,10 @@ object SettingsGUI : Listener {
             if (!HealthChallenge.isActive) {
                 HealthChallenge.isActive = true
                 sendChallengeMessage("Health Challenge has been enabled.", NamedTextColor.GREEN)
-                config.set("challenges.health-challenge.active", true)
-                HealthChallenge.updateConfig()
             } else {
                 HealthChallenge.isActive = false
                 sendChallengeMessage("Health Challenge has been disabled.", NamedTextColor.RED)
-                config.set("challenges.health-challenge.active", false)
-                HealthChallenge.updateConfig()
             }
-            Main.instance.saveConfig()
-            HealthChallenge.updateHealth()
         }
 
         if (item?.displayName() == RandomBlockDropChallenge.guiItem().displayName()) {

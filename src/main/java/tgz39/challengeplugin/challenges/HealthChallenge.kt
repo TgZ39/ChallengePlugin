@@ -14,17 +14,24 @@ import tgz39.challengeplugin.utils.Challenge
 object HealthChallenge : Challenge {
 
     override var isActive = false
+        set(value) {
+            field = value
+            Main.instance.config.set("challenges.health-challenge.active", value)
+            Main.instance.saveConfig()
+        }
     var health = 6.0
+        set(value) {
+            field = value
+            Main.instance.config.set("challenges.health-challenge.health", value.toInt())
+            Main.instance.saveConfig()
+        }
 
     init {
-        updateConfig()
-        updateHealth()
-    }
-
-    fun updateConfig() {
         val config = Main.instance.config
         isActive = config.getBoolean("challenges.health-challenge.active")
         health = config.getInt("challenges.health-challenge.health").toDouble()
+
+        updateHealth()
     }
 
     override fun guiItem(): ItemStack {
