@@ -21,7 +21,7 @@ object HealthChallenge : Challenge {
         updateHealth()
     }
 
-    override fun updateConfig() {
+    fun updateConfig() {
         val config = Main.instance.config
         isActive = config.getBoolean("challenges.health-challenge.active")
         health = config.getInt("challenges.health-challenge.health").toDouble()

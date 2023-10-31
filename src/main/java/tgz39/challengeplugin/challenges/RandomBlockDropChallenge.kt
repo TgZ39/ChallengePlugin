@@ -22,7 +22,7 @@ object RandomBlockDropChallenge : Listener, Challenge {
         generateRandomDrops()
     }
 
-    override fun updateConfig() {
+    fun updateConfig() {
         val config = Main.instance.config
         isActive = config.getBoolean("challenges.random-block-drop-challenge.active")
     }

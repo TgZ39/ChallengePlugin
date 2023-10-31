@@ -5,7 +5,6 @@ import org.bukkit.inventory.ItemStack
 interface Challenge {
 
     var isActive: Boolean
-    fun updateConfig()
     fun guiItem(): ItemStack
 
 }

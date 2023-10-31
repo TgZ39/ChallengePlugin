@@ -22,7 +22,7 @@ object LavaChallenge : Challenge {
         run()
     }
 
-    override fun updateConfig() {
+    fun updateConfig() {
         val config = Main.instance.config
         isActive = config.getBoolean("challenges.lava-challenge.active")
         lavaSpawnHeight = config.getInt("challenges.lava-challenge.lava-spawn-height")

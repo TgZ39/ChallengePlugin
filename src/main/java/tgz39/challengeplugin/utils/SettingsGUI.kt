@@ -92,14 +92,10 @@ object SettingsGUI : Listener {
             if (!RandomEffectChallenge.isActive) {
                 RandomEffectChallenge.isActive = true
                 sendChallengeMessage("Random Effect Challenge has been enabled.", NamedTextColor.GREEN)
-                config.set("challenges.random-effect-challenge.active", true)
             } else {
                 RandomEffectChallenge.isActive = false
                 sendChallengeMessage("Random Effect Challenge has been disabled.", NamedTextColor.RED)
-                config.set("challenges.random-effect-challenge.active", false)
             }
-            Main.instance.saveConfig()
-            RandomEffectChallenge.updateConfig()
         }
 
         if (item?.displayName() == HealthChallenge.guiItem().displayName()) {
