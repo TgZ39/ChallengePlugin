@@ -107,7 +107,7 @@ object RandomMobChallenge : Challenge {
 
     override fun guiItem(): ItemStack {
 
-        val item = ItemStack(Material.SPAWNER, 1)
+        val item = ItemStack(Material.ALLAY_SPAWN_EGG, 1)
         val itemMeta = item.itemMeta
         val lore = itemMeta.lore() ?: ArrayList()
 
