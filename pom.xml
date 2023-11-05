@@ -64,7 +64,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
-                    <outputDirectory>C:\Users\wasd3\Desktop\servers\1-20-2\plugins</outputDirectory>
+                    <outputDirectory>${env.PLUGIN_OUTPUT_DIRECTORY}</outputDirectory>
                 </configuration>
             </plugin>
             <plugin>
