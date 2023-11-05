@@ -49,7 +49,7 @@ object RandomMobChallenge : Challenge {
 
     fun getRandomMob(): EntityType {
 
-        val mobs: MutableList<EntityType> = EntityType.entries.filter { it.isAlive; it.isAlive }.toMutableList()
+        val mobs: MutableList<EntityType> = EntityType.entries.filter { it.isAlive }.toMutableList()
         val removedMobs = listOf(
             EntityType.EXPERIENCE_ORB,
             EntityType.AREA_EFFECT_CLOUD,
