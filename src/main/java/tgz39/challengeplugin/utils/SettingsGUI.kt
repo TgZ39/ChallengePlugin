@@ -35,6 +35,7 @@ object SettingsGUI : Listener {
         player.openInventory(inventory)
     }
 
+    // handle click in /settings GUI
     @EventHandler
     fun onItemClick(event: InventoryClickEvent) {
 

@@ -14,6 +14,7 @@ import tgz39.challengeplugin.utils.Challenge
 
 object LavaChallenge : Challenge {
 
+    // Variables to control the Challenge
     override var isActive = false
         set(value) {
             field = value
@@ -36,6 +37,7 @@ object LavaChallenge : Challenge {
         run()
     }
 
+    // GUI item for /settings command
     override fun guiItem(): ItemStack {
 
         val item = ItemStack(Material.LAVA_BUCKET, 1)
@@ -73,6 +75,7 @@ object LavaChallenge : Challenge {
                 if (!isActive) return
                 if (!Timer.isActive) return
 
+                // spawn lava above very player
                 for (player in Bukkit.getServer().onlinePlayers) {
 
                     if (player.gameMode != GameMode.SURVIVAL) continue

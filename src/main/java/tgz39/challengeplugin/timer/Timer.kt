@@ -44,6 +44,7 @@ object Timer {
         return "$hours:$minutes:$seconds"
     }
 
+    // display timer in actionbar
     fun sendActionBar() {
         for (player in Bukkit.getServer().onlinePlayers) {
             if (isActive) {
@@ -76,13 +77,14 @@ object Timer {
 
                 sendActionBar()
 
+                // make timer go up
                 if (isActive) {
                     ticks++
                     if (ticks >= 20) {
                         time++
                         ticks = 0
                     }
-                } else {
+                } else { // give player effects if timer is not active
                     for (player in Bukkit.getServer().onlinePlayers) {
                         player.addPotionEffect(PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 21, 255, true))
                         player.addPotionEffect(PotionEffect(PotionEffectType.SATURATION, 21, 255, true))

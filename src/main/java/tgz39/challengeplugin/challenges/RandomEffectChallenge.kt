@@ -17,6 +17,7 @@ import java.util.*
 
 object RandomEffectChallenge : Challenge {
 
+    // Variables to control the Challenge
     override var isActive = false
         set(value) {
             field = value
@@ -62,6 +63,7 @@ object RandomEffectChallenge : Challenge {
             Main.instance.saveConfig()
         }
 
+    // load values from config
     init {
         val config = Main.instance.config
         isActive = config.getBoolean("challenges.random-effect-challenge.active")
@@ -76,6 +78,7 @@ object RandomEffectChallenge : Challenge {
         run()
     }
 
+    // GUI item for /settings command
     override fun guiItem(): ItemStack {
 
         val item = ItemStack(Material.POTION, 1)
@@ -129,6 +132,7 @@ object RandomEffectChallenge : Challenge {
         return Random().nextInt(minDelay, maxDelay) * 20
     }
 
+    // return random effect
     fun getRandomEffect(): PotionEffectType {
 
         val effects: MutableList<PotionEffectType> = PotionEffectType.values().toMutableList()
@@ -150,6 +154,7 @@ object RandomEffectChallenge : Challenge {
 
     private fun run() {
         object : BukkitRunnable() {
+            // give each player a random effect at random interval
             override fun run() {
 
                 if (!isActive) return
@@ -157,6 +162,7 @@ object RandomEffectChallenge : Challenge {
 
                 if (time >= delay) {
                     val effectType = getRandomEffect()
+                    // create random effect
                     val effect = PotionEffect(
                         effectType,
                         effectDuration(),

@@ -19,6 +19,7 @@ class DeathLisenter : Listener {
         val deadPlayer = event.player
         val config = Main.instance.config
 
+        // stop Challenge von PlayerDeath
         if (Timer.isActive && config.getBoolean("timer.stop-timer-on-death")) {
             Timer.isActive = false
             Bukkit.broadcast(

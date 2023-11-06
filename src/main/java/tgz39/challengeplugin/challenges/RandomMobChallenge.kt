@@ -16,6 +16,7 @@ import java.util.*
 
 object RandomMobChallenge : Challenge {
 
+    // Variables to control the Challenge
     override var isActive = false
         set(value) {
             field = value
@@ -47,6 +48,7 @@ object RandomMobChallenge : Challenge {
         run()
     }
 
+    // return list of random Mobs
     fun getRandomMob(): EntityType {
 
         val mobs: MutableList<EntityType> = EntityType.entries.filter { it.isAlive }.toMutableList()
@@ -105,6 +107,7 @@ object RandomMobChallenge : Challenge {
         return Random().nextInt(minDelay, maxDelay) * 20
     }
 
+    // GUI item for /settings command
     override fun guiItem(): ItemStack {
 
         val item = ItemStack(Material.ALLAY_SPAWN_EGG, 1)
@@ -140,6 +143,7 @@ object RandomMobChallenge : Challenge {
 
     private fun run() {
         object : BukkitRunnable() {
+            // spawn random mob at random interval
             override fun run() {
 
                 if (!isActive) return

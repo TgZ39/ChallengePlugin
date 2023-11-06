@@ -24,10 +24,12 @@ class Main : JavaPlugin() {
 
         logger.info("Loading Plugin...")
 
+        // register commands
         getCommand("settings")?.setExecutor(SettingsCommand())
         getCommand("timer")?.setExecutor(TimerCommand())
         getCommand("timer")?.tabCompleter = TimerCommand()
 
+        // register Event Listeners for Challenges
         server.pluginManager.registerEvents(SettingsGUI, this)
         server.pluginManager.registerEvents(DeathLisenter(), this)
         server.pluginManager.registerEvents(RandomBlockDropChallenge, this)

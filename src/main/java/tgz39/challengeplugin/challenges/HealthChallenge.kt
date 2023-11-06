@@ -13,6 +13,7 @@ import tgz39.challengeplugin.utils.Challenge
 
 object HealthChallenge : Challenge {
 
+    // Variables to control the Challenge
     override var isActive = false
         set(value) {
             field = value
@@ -34,6 +35,7 @@ object HealthChallenge : Challenge {
         updateHealth()
     }
 
+    // GUI item for the /settings command
     override fun guiItem(): ItemStack {
         val item = ItemStack(Material.TOTEM_OF_UNDYING, 1)
         val itemMeta = item.itemMeta
