@@ -37,8 +37,19 @@ object Timer {
 
     fun getFormated(): String {
 
-        val seconds = time % 60
-        val minutes = (time / 60) % 60
+        val seconds =
+            if (time % 60 >= 10) {
+                (time % 60).toString()
+            } else {
+                "0" + (time % 60).toString()
+            }
+
+        val minutes =
+            if ((time / 60) % 60 >= 10) {
+                ((time / 60) % 60).toString()
+            } else {
+                "0" + ((time / 60) % 60).toString()
+            }
         val hours = time / 3600
 
         return "$hours:$minutes:$seconds"
