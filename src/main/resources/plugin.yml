@@ -2,9 +2,9 @@ name: ChallengePlugin
 version: '${project.version}'
 main: tgz39.challengeplugin.Main
 api-version: '1.20'
-authors: [TgZ39, ImReady]
+authors: [TgZ39]
 commands:
   settings:
-    description: Open settings for Challenges.
+    description: Opens an Inventory to control the enable/disable Challenges. (use /settings <CHALLENGE> <OPTION> <VALUE> to change Challenge settings.)
   timer:
     description: Controls the Timer.
