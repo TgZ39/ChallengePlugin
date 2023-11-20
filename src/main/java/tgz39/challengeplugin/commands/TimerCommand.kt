@@ -87,6 +87,36 @@ class TimerCommand : CommandExecutor, TabCompleter {
                         return false
                     }
                 }
+                "mode" -> {
+                    if (args.size < 2) {
+                        sender.sendMessage(Component.text("Usage: /timer mode [up, down]").color(NamedTextColor.RED))
+                        return false
+                    }
+                    if (args[1] == "up") {
+                        Timer.mode = false
+                        sender.sendMessage(
+                            Component.text("Timer: ").decoration(TextDecoration.BOLD, true).color(NamedTextColor.GOLD)
+                                .append(
+                                    Component.text("Mode set to count up")
+                                        .decoration(TextDecoration.BOLD, false)
+                                        .color(NamedTextColor.WHITE)
+                                )
+                        )
+                    } else if (args[1] == "down") {
+                        Timer.mode = true
+                        sender.sendMessage(
+                            Component.text("Timer: ").decoration(TextDecoration.BOLD, true).color(NamedTextColor.GOLD)
+                                .append(
+                                    Component.text("Mode set to count down")
+                                        .decoration(TextDecoration.BOLD, false)
+                                        .color(NamedTextColor.WHITE)
+                                )
+                        )
+                    } else {
+                        sender.sendMessage(Component.text("Usage: /timer mode [up, down]").color(NamedTextColor.RED))
+                        return false
+                    }
+                }
 
                 else -> {
                     sender.sendMessage(
@@ -113,6 +143,11 @@ class TimerCommand : CommandExecutor, TabCompleter {
             list.add("pause")
             list.add("reset")
             list.add("set")
+            list.add("mode")
+        }
+        if (args?.size == 2 && args[0] == "mode") {
+            list.add("up")
+            list.add("down")
         }
 
         return list

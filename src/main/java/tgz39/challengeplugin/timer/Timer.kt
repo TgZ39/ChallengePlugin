@@ -4,6 +4,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
+import org.bukkit.GameMode
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
@@ -23,6 +24,12 @@ object Timer {
         set(value) {
             field = value
             Main.instance.config.set("timer.save-time-between-sessions", value)
+            Main.instance.saveConfig()
+        }
+    var mode: Boolean = false
+        set(value) {
+            field = value
+            Main.instance.config.set("timer.mode", value)
             Main.instance.saveConfig()
         }
 
@@ -92,8 +99,28 @@ object Timer {
                 if (isActive) {
                     ticks++
                     if (ticks >= 20) {
-                        time++
+                        if (!mode) {
+                            time++
+                        } else {
+                            time--
+                        }
                         ticks = 0
+                    }
+                    if (time <= 0 && mode) {
+                        isActive = false
+                        for (player in Bukkit.getOnlinePlayers()) {
+                            player.sendMessage(
+                                Component.text("Timer: ").decoration(TextDecoration.BOLD, true).color(NamedTextColor.GOLD)
+                                    .append(
+                                        Component.text("Time over!").decoration(TextDecoration.BOLD, false)
+                                            .color(NamedTextColor.WHITE)
+                                    )
+                            )
+
+                            if (player.gameMode == GameMode.SURVIVAL) {
+                                player.gameMode = GameMode.SPECTATOR
+                            }
+                        }
                     }
                 } else { // give player effects if timer is not active
                     for (player in Bukkit.getServer().onlinePlayers) {
