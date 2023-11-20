@@ -4,6 +4,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
+import org.bukkit.GameMode
 import org.bukkit.Material
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
@@ -171,6 +172,7 @@ object RandomEffectChallenge : Challenge {
                     )
 
                     for (player in Bukkit.getServer().onlinePlayers) {
+                        if (player.gameMode != GameMode.SURVIVAL) continue
                         player.addPotionEffect(effect)
                     }
 

@@ -4,6 +4,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Bukkit
+import org.bukkit.GameMode
 import org.bukkit.Material
 import org.bukkit.entity.EntityType
 import org.bukkit.inventory.ItemFlag
@@ -153,6 +154,7 @@ object RandomMobChallenge : Challenge {
                     val mob = getRandomMob()
                     for (player in Bukkit.getServer().onlinePlayers) {
 
+                        if (player.gameMode != GameMode.SURVIVAL) continue
                         val pos = player.location
                         player.world.spawnEntity(pos, mob)
                     }
