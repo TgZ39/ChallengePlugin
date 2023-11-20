@@ -5,6 +5,7 @@ import tgz39.challengeplugin.challenges.RandomBlockDropChallenge
 import tgz39.challengeplugin.commands.SettingsCommand
 import tgz39.challengeplugin.commands.TimerCommand
 import tgz39.challengeplugin.listeners.DeathLisenter
+import tgz39.challengeplugin.listeners.EnderDragonDeath
 import tgz39.challengeplugin.timer.Timer
 import tgz39.challengeplugin.utils.SettingsGUI
 
@@ -32,6 +33,7 @@ class Main : JavaPlugin() {
         // register Event Listeners for Challenges
         server.pluginManager.registerEvents(SettingsGUI, this)
         server.pluginManager.registerEvents(DeathLisenter(), this)
+        server.pluginManager.registerEvents(EnderDragonDeath(), this)
         server.pluginManager.registerEvents(RandomBlockDropChallenge, this)
 
         Timer.sendActionBar()
