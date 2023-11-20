@@ -23,3 +23,5 @@ timer:
   stop-timer-on-death: true
   time: 0
   save-time-between-sessions: true
+  mode: false
+  stop-timer-on-dragon-death: true
