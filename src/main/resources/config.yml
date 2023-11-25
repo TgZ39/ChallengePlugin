@@ -19,6 +19,10 @@ challenges:
     health: 6
   random-block-drop-challenge:
     active: false
+  random-item-craft-challenge:
+    active: false
+    max-item-count: 0
+    max-skip-count: 3
 timer:
   stop-timer-on-death: true
   time: 0

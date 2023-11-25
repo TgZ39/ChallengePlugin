@@ -9,6 +9,7 @@ import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 import tgz39.challengeplugin.Main
+import tgz39.challengeplugin.challenges.RandomItemCraftChallenge
 
 object Timer {
 
@@ -26,7 +27,7 @@ object Timer {
             Main.instance.config.set("timer.save-time-between-sessions", value)
             Main.instance.saveConfig()
         }
-    var mode: Boolean = false
+    var mode: Boolean = false // false = countup, true = countdown
         set(value) {
             field = value
             Main.instance.config.set("timer.mode", value)
@@ -110,12 +111,15 @@ object Timer {
                         isActive = false
                         for (player in Bukkit.getOnlinePlayers()) {
                             player.sendMessage(
-                                Component.text("Timer: ").decoration(TextDecoration.BOLD, true).color(NamedTextColor.GOLD)
+                                Component.text("Timer: ").decoration(TextDecoration.BOLD, true)
+                                    .color(NamedTextColor.GOLD)
                                     .append(
                                         Component.text("Time over!").decoration(TextDecoration.BOLD, false)
                                             .color(NamedTextColor.WHITE)
                                     )
                             )
+
+                            RandomItemCraftChallenge.displayWinner()
 
                             if (player.gameMode == GameMode.SURVIVAL) {
                                 player.gameMode = GameMode.SPECTATOR

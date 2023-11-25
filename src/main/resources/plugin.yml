@@ -8,3 +8,7 @@ commands:
     description: Opens an Inventory to control the enable/disable Challenges. (use /settings <CHALLENGE> <OPTION> <VALUE> to change Challenge settings.)
   timer:
     description: Controls the Timer.
+  skipitem:
+    description: Skips your current item.
+  myitem:
+    description: Displays your current item.

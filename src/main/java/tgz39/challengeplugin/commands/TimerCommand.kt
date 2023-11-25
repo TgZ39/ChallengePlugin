@@ -3,12 +3,14 @@ package tgz39.challengeplugin.commands
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
+import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 import tgz39.challengeplugin.challenges.HealthChallenge
 import tgz39.challengeplugin.challenges.RandomEffectChallenge
+import tgz39.challengeplugin.challenges.RandomItemCraftChallenge
 import tgz39.challengeplugin.challenges.RandomMobChallenge
 import tgz39.challengeplugin.timer.Timer
 
@@ -36,6 +38,12 @@ class TimerCommand : CommandExecutor, TabCompleter {
                             )
                     )
                     HealthChallenge.updateHealth()
+                    if (RandomItemCraftChallenge.isActive) {
+                        for (player in Bukkit.getOnlinePlayers()) {
+                            RandomItemCraftChallenge.displayItem(player)
+                        }
+                        RandomItemCraftChallenge.resetSkips()
+                    }
                 }
 
                 "pause" -> {
@@ -87,6 +95,7 @@ class TimerCommand : CommandExecutor, TabCompleter {
                         return false
                     }
                 }
+
                 "mode" -> {
                     if (args.size < 2) {
                         sender.sendMessage(Component.text("Usage: /timer mode [up, down]").color(NamedTextColor.RED))

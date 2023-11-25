@@ -57,11 +57,33 @@ class SettingsCommand : CommandExecutor, TabCompleter {
             return false
 
         } else if (args?.size == 1 || args?.size == 2) {
+            if (args[0].lowercase() == "random-block-drop-challenge") {
+                if (args[1].lowercase() == "reset") {
+                    RandomBlockDropChallenge.generateRandomDrops()
+                    sendMessage("Random Block Drop Challenge drops have been randomized.", NamedTextColor.WHITE)
+                } else {
+                    sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
+                }
 
-            if (args[1].lowercase() == "reset") {
-                RandomBlockDropChallenge.generateRandomDrops()
-                sendMessage("Random Block Drop Challenge drops have been randomized.", NamedTextColor.WHITE)
+            } else if (args[0].lowercase() == "random-item-craft-challenge") {
+                if (args[1] == "reset-skips") {
 
+                    RandomItemCraftChallenge.resetSkips()
+                    sendMessage("Player Skips have been reset", NamedTextColor.WHITE)
+
+                } else if (args[1].lowercase() == "reset-item-counts") {
+
+                    RandomItemCraftChallenge.resetItemCounts()
+                    sendMessage("Random Item Craft Challenge Item counts have been reset.", NamedTextColor.WHITE)
+
+                } else if (args[1].lowercase() == "reset-items") {
+
+                    RandomItemCraftChallenge.resetItems()
+                    sendMessage("Random Item Craft Items have been reset.", NamedTextColor.WHITE)
+
+                } else {
+                    sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
+                }
             } else {
                 sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
             }
@@ -286,6 +308,33 @@ class SettingsCommand : CommandExecutor, TabCompleter {
                     sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
                 }
 
+            } else if (args[0].lowercase() == "random-item-craft-challenge") {
+                if (args[1].lowercase() == "active") {
+                    if (args[2].lowercase() == "true") {
+
+                        RandomItemCraftChallenge.isActive = true
+                        sendMessage("Random Item Craft Challenge has been enabled.", NamedTextColor.GREEN)
+
+                    } else if (args[2].lowercase() == "false") {
+
+                        RandomItemCraftChallenge.isActive = false
+                        sendMessage("Random Item Craft Challenge has been disabled.", NamedTextColor.RED)
+                    } else {
+                        sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
+                    }
+                } else if (args[1] == "set-max-skips") {
+                    if (isNumber(args[2])) {
+                        RandomItemCraftChallenge.maxSkipCount = args[2].toInt()
+                        sendMessage("Max Skip count has been set to ${args[2]}.", NamedTextColor.WHITE)
+                    }
+                } else if (args[1] == "set-max-item-count") {
+                    if (isNumber(args[2])) {
+                        RandomItemCraftChallenge.maxItemCount = args[2].toInt()
+                        sendMessage("Max Item count has been set to ${args[2]}.", NamedTextColor.WHITE)
+                    }
+                } else {
+                    sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
+                }
             } else {
                 sendUsageError("Usage: /settings <CHALLENGE> <OPTION> <VALUE>")
             }
@@ -309,6 +358,7 @@ class SettingsCommand : CommandExecutor, TabCompleter {
             list.add("lava-challenge")
             list.add("health-challenge")
             list.add("random-block-drop-challenge")
+            list.add("random-item-craft-challenge")
         }
 
         if (args?.size == 2) {
@@ -334,11 +384,24 @@ class SettingsCommand : CommandExecutor, TabCompleter {
                 list.add("lava-spawn-height")
 
             } else if (args[0].lowercase() == "health-challenge") {
+
                 list.add("active")
                 list.add("health")
+
             } else if (args[0].lowercase() == "random-block-drop-challenge") {
+
                 list.add("active")
                 list.add("reset")
+
+            } else if (args[0].lowercase() == "random-item-craft-challenge") {
+
+                list.add("active")
+                list.add("reset-items")
+                list.add("reset-item-counts")
+                list.add("reset-skips")
+                list.add("set-max-skips")
+                list.add("set-max-item-count")
+
             }
         }
 
@@ -367,6 +430,11 @@ class SettingsCommand : CommandExecutor, TabCompleter {
                     list.add("false")
                 }
             } else if (args[0].lowercase() == "random-block-drop-challenge") {
+                if (args[1].lowercase() == "active") {
+                    list.add("true")
+                    list.add("false")
+                }
+            } else if (args[0].lowercase() == "random-item-craft-challenge") {
                 if (args[1].lowercase() == "active") {
                     list.add("true")
                     list.add("false")
