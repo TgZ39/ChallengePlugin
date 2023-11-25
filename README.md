@@ -1,7 +1,8 @@
 # ChallengePlugin
 Minecraft Plugin for 1.20+ with Challenges
 
-[![GitHub all releases](https://img.shields.io/github/downloads/TgZ39/ChallengePlugin/total?style=flat&color=green)](https://www.github.com/TgZ39/ChallengePlugin/releases) [![GitHub release (with filter)](https://img.shields.io/github/v/release/TgZ39/ChallengePlugin)](https://www.github.com/TgZ39/ChallengePlugin/releases) [![Discord](https://img.shields.io/discord/961347168235585546?style=flat&logo=discord&label=Discord&link=https%3A%2F%2Fdiscord.gg%2FFrHSKEwBkv)](https://discord.gg/FrHSKEwBkv)
+[![GitHub all releases](https://img.shields.io/github/downloads/TgZ39/ChallengePlugin/total?style=flat&color=green)](https://www.github.com/TgZ39/ChallengePlugin/releases) [![GitHub release (with filter)](https://img.shields.io/github/v/release/TgZ39/ChallengePlugin)](https://www.github.com/TgZ39/ChallengePlugin/releases) [![Discord](https://img.shields.io/discord/961347168235585546?style=flat&logo=discord&label=Discord&link=https%3A%2F%2Fdiscord.gg%2FFrHSKEwBkv)](https://discord.gg/FrHSKEwBkv) <br>
+<a href="https://modrinth.com/plugin/challengeplugin" rel="nofollow"><img src="https://raw.githubusercontent.com/Prospector/badges/master/modrinth-badge-72h-padded.png" alt="Download on Modrinth"></a>
 
 
 ## Features
