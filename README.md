@@ -8,6 +8,7 @@ Minecraft Plugin for 1.20+ with Challenges
 - Random Mob Challenge
 - Random Effect Challenge
 - Random Block Drop Challenge
+- Random Item Craft Challenge
 - Lava Challenge
 - Health Challenge
 - Setting UI (`/settings` or `/settings <CHALLENGE> <OPTION> <VALUE>`)
