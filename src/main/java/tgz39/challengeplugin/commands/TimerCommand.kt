@@ -38,12 +38,7 @@ class TimerCommand : CommandExecutor, TabCompleter {
                             )
                     )
                     HealthChallenge.updateHealth()
-                    if (RandomItemCraftChallenge.isActive) {
-                        for (player in Bukkit.getOnlinePlayers()) {
-                            RandomItemCraftChallenge.displayItem(player)
-                        }
-                        RandomItemCraftChallenge.resetSkips()
-                    }
+                    RandomItemCraftChallenge.resetSkips()
                 }
 
                 "pause" -> {

@@ -1,11 +1,12 @@
 package tgz39.challengeplugin.challenges
 
+import net.kyori.adventure.bossbar.BossBar
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
-import net.kyori.adventure.title.Title
 import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -31,6 +32,8 @@ object RandomItemCraftChallenge : Challenge, Listener {
     var itemList: MutableList<Material> = Material.entries.filter { it.isItem }.shuffled().toMutableList()
 
     var playerSkipCount: MutableMap<String, Int> = mutableMapOf()
+
+    var itemBossBars: MutableMap<Player, BossBar> = mutableMapOf()
 
     var maxSkipCount = 3
         set(value) {
@@ -101,15 +104,17 @@ object RandomItemCraftChallenge : Challenge, Listener {
         }
 
         if (event.player.name !in playerSkipCount) {
-            playerSkipCount[event.player.name] = 3
+            playerSkipCount[event.player.name] = maxSkipCount
         }
-
-        displayItem(event.player)
     }
 
     private fun run() {
         object : BukkitRunnable() {
             override fun run() {
+                for (player in Bukkit.getOnlinePlayers()) {
+                    updateBossBar(player)
+                }
+
                 if (!isActive) return
                 if (!Timer.isActive) return
 
@@ -126,15 +131,10 @@ object RandomItemCraftChallenge : Challenge, Listener {
                             formatItemName(itemList[playerItemCount[player.name]!!].name),
                             NamedTextColor.WHITE
                         )
-                        playerItemCount[player.name] = playerItemCount[player.name]!! + 1
-                        sendMessage(
-                            player,
-                            "New Item",
-                            formatItemName(itemList[playerItemCount[player.name]!!].name),
-                            NamedTextColor.WHITE
-                        )
 
-                        displayItem(player)
+                        playerItemCount[player.name] = playerItemCount[player.name]!! + 1
+
+                        playItemCollectSound(player)
 
                         if (playerItemCount[player.name]!! >= maxItemCount) {
                             Timer.isActive = false
@@ -154,23 +154,6 @@ object RandomItemCraftChallenge : Challenge, Listener {
             }
         }.runTaskTimer(Main.instance, 0, 1)
 
-    }
-
-    fun displayItem(player: Player) {
-        player.showTitle(
-            Title.title(
-                Component.text(""), Component
-                    .text("New Item: ")
-                    .color(NamedTextColor.WHITE)
-                    .decoration(TextDecoration.BOLD, false)
-                    .append(
-                        Component
-                            .text(formatItemName(itemList[playerItemCount[player.name]!!].name))
-                            .color(NamedTextColor.GOLD)
-                            .decoration(TextDecoration.BOLD, true)
-                    )
-            )
-        )
     }
 
     fun resetItemCounts() {
@@ -214,4 +197,48 @@ object RandomItemCraftChallenge : Challenge, Listener {
         }
     }
 
+    fun updateBossBar(player: Player) {
+
+        val newItemBossBar = BossBar.bossBar(Component.text("Item: ").color(NamedTextColor.WHITE).append(
+            Component.text(
+                formatItemName(itemList[playerItemCount[player.name]!!].name)
+            ).color(NamedTextColor.GOLD).decoration(TextDecoration.BOLD, true)), 1f, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS)
+
+        if (player !in itemBossBars) {
+            itemBossBars[player] = newItemBossBar
+        }
+
+        if (!Timer.isActive || !isActive) {
+            for (bossBar in player.activeBossBars()) {
+                if (bossBar == itemBossBars[player]) {
+                    player.hideBossBar(bossBar)
+                }
+            }
+            return
+        }
+
+        if (itemBossBars[player] !in player.activeBossBars()) {
+            player.showBossBar(itemBossBars[player]!!)
+        }
+
+        for (bossBar in player.activeBossBars()) {
+            if (bossBar == itemBossBars[player]) {
+                player.hideBossBar(bossBar)
+            }
+        }
+        player.showBossBar(newItemBossBar)
+        itemBossBars[player] = newItemBossBar
+    }
+
+    fun playItemCollectSound(player: Player) {
+        player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_BELL, 1f, 0.943874f)
+
+        object : BukkitRunnable() {
+            override fun run() {
+                player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_BELL, 1f, 1.059463f)
+            }
+        }.runTaskLater(Main.instance, 3)
+    }
 }
+
+

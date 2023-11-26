@@ -42,13 +42,6 @@ class SkipItemCommand : CommandExecutor {
                 "You skipped your item. You have ${RandomItemCraftChallenge.playerSkipCount[player.name]} skips left.",
                 NamedTextColor.WHITE
             )
-            sendMessage(
-                player,
-                "New Item",
-                RandomItemCraftChallenge.formatItemName(RandomItemCraftChallenge.itemList[RandomItemCraftChallenge.playerItemCount[player.name]!!].name),
-                NamedTextColor.WHITE
-            )
-            RandomItemCraftChallenge.displayItem(player)
             return false
         }
     }
