@@ -199,10 +199,13 @@ object RandomItemCraftChallenge : Challenge, Listener {
 
     fun updateBossBar(player: Player) {
 
-        val newItemBossBar = BossBar.bossBar(Component.text("Item: ").color(NamedTextColor.WHITE).append(
-            Component.text(
-                formatItemName(itemList[playerItemCount[player.name]!!].name)
-            ).color(NamedTextColor.GOLD).decoration(TextDecoration.BOLD, true)), 1f, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS)
+        val newItemBossBar = BossBar.bossBar(
+            Component.text("Item: ").color(NamedTextColor.WHITE).append(
+                Component.text(
+                    formatItemName(itemList[playerItemCount[player.name]!!].name)
+                ).color(NamedTextColor.GOLD).decoration(TextDecoration.BOLD, true)
+            ), 1f, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS
+        )
 
         if (player !in itemBossBars) {
             itemBossBars[player] = newItemBossBar
