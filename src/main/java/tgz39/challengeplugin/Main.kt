@@ -3,7 +3,6 @@ package tgz39.challengeplugin
 import org.bukkit.plugin.java.JavaPlugin
 import tgz39.challengeplugin.challenges.RandomBlockDropChallenge
 import tgz39.challengeplugin.challenges.RandomItemCraftChallenge
-import tgz39.challengeplugin.commands.MyItemCommand
 import tgz39.challengeplugin.commands.SettingsCommand
 import tgz39.challengeplugin.commands.SkipItemCommand
 import tgz39.challengeplugin.commands.TimerCommand
@@ -33,7 +32,6 @@ class Main : JavaPlugin() {
         getCommand("timer")?.setExecutor(TimerCommand())
         getCommand("timer")?.tabCompleter = TimerCommand()
         getCommand("skipitem")?.setExecutor(SkipItemCommand())
-        getCommand("myitem")?.setExecutor(MyItemCommand())
 
         // register Event Listeners for Challenges
         server.pluginManager.registerEvents(SettingsGUI, this)

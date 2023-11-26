@@ -10,5 +10,3 @@ commands:
     description: Controls the Timer.
   skipitem:
     description: Skips your current item.
-  myitem:
-    description: Displays your current item.
