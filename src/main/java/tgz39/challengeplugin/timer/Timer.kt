@@ -9,7 +9,7 @@ import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 import tgz39.challengeplugin.Main
-import tgz39.challengeplugin.challenges.RandomItemCraftChallenge
+import tgz39.challengeplugin.challenges.RandomItemCollectChallenge
 
 object Timer {
 
@@ -119,7 +119,7 @@ object Timer {
                                     )
                             )
 
-                            RandomItemCraftChallenge.displayWinner()
+                            RandomItemCollectChallenge.displayWinner()
 
                             if (player.gameMode == GameMode.SURVIVAL) {
                                 player.gameMode = GameMode.SPECTATOR

@@ -18,42 +18,42 @@ import tgz39.challengeplugin.timer.Timer
 import tgz39.challengeplugin.utils.Challenge
 import tgz39.challengeplugin.utils.sendMessage
 
-object RandomItemCraftChallenge : Challenge, Listener {
+object RandomItemCollectChallenge : Challenge(), Listener {
 
     override var isActive: Boolean = true
         set(value) {
             field = value
-            Main.instance.config.set("challenges.random-item-craft-challenge.active", value)
+            Main.instance.config.set("challenges.random-item-collect-challenge.active", value)
             Main.instance.saveConfig()
         }
 
-    var playerItemCount: MutableMap<String /* Playername */, Int> = mutableMapOf()
+    var playerItemCount: MutableMap<Player, Int> = mutableMapOf()
 
-    var itemList: MutableList<Material> = Material.entries.filter { it.isItem }.shuffled().toMutableList()
+    private var itemList: MutableList<Material> = Material.entries.filter { it.isItem }.shuffled().toMutableList()
 
-    var playerSkipCount: MutableMap<String, Int> = mutableMapOf()
+    var playerSkipCount: MutableMap<Player, Int> = mutableMapOf()
 
-    var itemBossBars: MutableMap<Player, BossBar> = mutableMapOf()
+    private var itemBossBars: MutableMap<Player, BossBar> = mutableMapOf()
 
     var maxSkipCount = 3
         set(value) {
             field = value
-            Main.instance.config.set("challenges.random-item-craft-challenge.skip-count", value)
+            Main.instance.config.set("challenges.random-item-collect-challenge.skip-count", value)
             Main.instance.saveConfig()
         }
 
     var maxItemCount = 0
         set(value) {
             field = value
-            Main.instance.config.set("challenges.random-item-craft-challenge.max-item-count", value)
+            Main.instance.config.set("challenges.random-item-collect-challenge.max-item-count", value)
             Main.instance.saveConfig()
         }
 
     init {
-        isActive = Main.instance.config.getBoolean("challenges.random-item-craft-challenge.active", false)
+        isActive = Main.instance.config.getBoolean("challenges.random-item-collect-challenge.active", false)
         maxItemCount =
-            Main.instance.config.getInt("challenges.random-item-craft-challenge.max-item-count", Int.MAX_VALUE)
-        maxSkipCount = Main.instance.config.getInt("challenges.random-item-craft-challenge.skip-count", 3)
+            Main.instance.config.getInt("challenges.random-item-collect-challenge.max-item-count", Int.MAX_VALUE)
+        maxSkipCount = Main.instance.config.getInt("challenges.random-item-collect-challenge.skip-count", 3)
         run()
     }
 
@@ -63,7 +63,7 @@ object RandomItemCraftChallenge : Challenge, Listener {
         val lore = itemMeta.lore() ?: ArrayList()
 
         itemMeta.displayName(
-            Component.text("Random Item Craft Challenge").decorate(TextDecoration.BOLD)
+            Component.text("Random Item Collect Challenge").decorate(TextDecoration.BOLD)
                 .decoration(TextDecoration.ITALIC, false)
                 .color(NamedTextColor.GOLD)
         )
@@ -99,12 +99,12 @@ object RandomItemCraftChallenge : Challenge, Listener {
 
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent) {
-        if (event.player.name !in playerItemCount) {
-            playerItemCount[event.player.name] = 0
+        if (event.player !in playerItemCount) {
+            playerItemCount[event.player] = 0
         }
 
-        if (event.player.name !in playerSkipCount) {
-            playerSkipCount[event.player.name] = maxSkipCount
+        if (event.player !in playerSkipCount) {
+            playerSkipCount[event.player] = maxSkipCount
         }
     }
 
@@ -120,23 +120,22 @@ object RandomItemCraftChallenge : Challenge, Listener {
 
                 // check if player has item
                 for (player in Bukkit.getOnlinePlayers()) {
-                    if (player.name !in playerItemCount.keys) {
-                        playerItemCount[player.name] = 0
+                    if (player !in playerItemCount.keys) {
+                        playerItemCount[player] = 0
                     }
-                    if (player.inventory.contains(itemList[playerItemCount[player.name]!!])) {
+                    if (player.inventory.contains(player.getItem())) {
 
                         sendMessage(
                             player,
                             "Item collected",
-                            formatItemName(itemList[playerItemCount[player.name]!!].name),
+                            player.getItem().name.formatItemName(),
                             NamedTextColor.WHITE
                         )
 
-                        playerItemCount[player.name] = playerItemCount[player.name]!! + 1
-
+                        playerItemCount[player] = player.getItemCount() + 1
                         playItemCollectSound(player)
 
-                        if (playerItemCount[player.name]!! >= maxItemCount) {
+                        if (player.getItemCount() >= maxItemCount && maxItemCount != 0) {
                             Timer.isActive = false
                             sendMessage(player, "Random Item Challenge", "You won the Challenge!", NamedTextColor.WHITE)
                             for (_player in Bukkit.getOnlinePlayers()) {
@@ -156,21 +155,26 @@ object RandomItemCraftChallenge : Challenge, Listener {
 
     }
 
+    /**
+     * Sets the collected item count of every player to 0
+     */
     fun resetItemCounts() {
         for (player in Bukkit.getOnlinePlayers()) {
-            playerItemCount[player.name] = 0
+            playerItemCount[player] = 0
         }
     }
 
+    /**
+     * Randomizes the itemList, which determines what items the players need to craft
+     */
     fun resetItems() {
         itemList = Material.entries.filter { it.isItem }.shuffled().toMutableList()
     }
 
-    fun formatItemName(itemName: String): String {
-        val noUnderscores = itemName.replace("_", " ")
+    private fun String.formatItemName(): String {
+        val noUnderscores = this.replace("_", " ")
         val lowerCase = noUnderscores.lowercase()
         return lowerCase.split(" ").joinToString(" ") { it.replaceFirstChar(Char::uppercaseChar) }
-
     }
 
     fun displayWinner() {
@@ -182,7 +186,7 @@ object RandomItemCraftChallenge : Challenge, Listener {
         for (player in playerItemCount.entries.sortedByDescending { it.value }.associate { it.key to it.value }) {
             message = message
                 .append(
-                    Component.text("   ${place++}. ${player.key}: ${player.value - (3 - playerSkipCount[player.key]!!)}\n")
+                    Component.text("   ${place++}. ${player.key.name}: ${player.value - (3 - playerSkipCount[player.key]!!)}\n")
                         .color(NamedTextColor.WHITE)
                         .decoration(TextDecoration.BOLD, false)
                 )
@@ -191,18 +195,24 @@ object RandomItemCraftChallenge : Challenge, Listener {
         Bukkit.broadcast(message)
     }
 
+    /**
+     * Resets every players skips they can use to the maxSkipCount
+     */
     fun resetSkips() {
         for (player in playerSkipCount) {
             playerSkipCount[player.key] = maxSkipCount
         }
     }
 
+    /**
+     * Updates the players current item bossbar
+     */
     fun updateBossBar(player: Player) {
 
         val newItemBossBar = BossBar.bossBar(
             Component.text("Item: ").color(NamedTextColor.WHITE).append(
                 Component.text(
-                    formatItemName(itemList[playerItemCount[player.name]!!].name)
+                    player.getItem().name.formatItemName()
                 ).color(NamedTextColor.GOLD).decoration(TextDecoration.BOLD, true)
             ), 1f, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS
         )
@@ -233,6 +243,9 @@ object RandomItemCraftChallenge : Challenge, Listener {
         itemBossBars[player] = newItemBossBar
     }
 
+    /**
+     * Plays the item collected sound for a player
+     * */
     fun playItemCollectSound(player: Player) {
         player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_BELL, 1f, 0.943874f)
 
@@ -242,6 +255,19 @@ object RandomItemCraftChallenge : Challenge, Listener {
             }
         }.runTaskLater(Main.instance, 3)
     }
+
+    /**
+     * Returns the item the player currently needs to craft
+     * */
+    private fun Player.getItem(): Material {
+        return itemList[playerItemCount[this]!!]
+    }
+
+
+    /**
+     * Returns the players crafted itemcount including their used skips
+     * */
+    private fun Player.getItemCount(): Int {
+        return playerItemCount[this]!!
+    }
 }
-
-

@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 import tgz39.challengeplugin.challenges.HealthChallenge
 import tgz39.challengeplugin.challenges.RandomEffectChallenge
-import tgz39.challengeplugin.challenges.RandomItemCraftChallenge
+import tgz39.challengeplugin.challenges.RandomItemCollectChallenge
 import tgz39.challengeplugin.challenges.RandomMobChallenge
 import tgz39.challengeplugin.timer.Timer
 
@@ -37,7 +37,7 @@ class TimerCommand : CommandExecutor, TabCompleter {
                             )
                     )
                     HealthChallenge.updateHealth()
-                    RandomItemCraftChallenge.resetSkips()
+                    RandomItemCollectChallenge.resetSkips()
                 }
 
                 "pause" -> {

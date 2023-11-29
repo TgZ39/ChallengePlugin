@@ -19,7 +19,7 @@ challenges:
     health: 6
   random-block-drop-challenge:
     active: false
-  random-item-craft-challenge:
+  random-item-collect-challenge:
     active: false
     max-item-count: 0
     max-skip-count: 3

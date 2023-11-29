@@ -6,7 +6,7 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import tgz39.challengeplugin.challenges.RandomItemCraftChallenge
+import tgz39.challengeplugin.challenges.RandomItemCollectChallenge
 import tgz39.challengeplugin.utils.sendMessage
 
 class SkipItemCommand : CommandExecutor {
@@ -21,25 +21,25 @@ class SkipItemCommand : CommandExecutor {
 
         val player: Player = sender
 
-        if (!RandomItemCraftChallenge.isActive) {
+        if (!RandomItemCollectChallenge.isActive) {
             sendMessage(player, "Skip Item", "Random Item Craft Challenge needs to be active.", NamedTextColor.RED)
             return false
         }
 
 
-        if (RandomItemCraftChallenge.playerSkipCount[player.name]!! <= 0) {
+        if (RandomItemCollectChallenge.playerSkipCount[player]!! <= 0) {
             sendMessage(player, "Skip Item", "You dont have any skips left.", NamedTextColor.RED)
             return false
         } else {
-            RandomItemCraftChallenge.playerItemCount[player.name] =
-                RandomItemCraftChallenge.playerItemCount[player.name]!! + 1
-            RandomItemCraftChallenge.playerSkipCount[player.name] =
-                RandomItemCraftChallenge.playerSkipCount[player.name]!! - 1
+            RandomItemCollectChallenge.playerItemCount[player] =
+                RandomItemCollectChallenge.playerItemCount[player]!! + 1
+            RandomItemCollectChallenge.playerSkipCount[player] =
+                RandomItemCollectChallenge.playerSkipCount[player]!! - 1
 
             sendMessage(
                 player,
                 "Skip Item",
-                "You skipped your item. You have ${RandomItemCraftChallenge.playerSkipCount[player.name]} skips left.",
+                "You skipped your item. You have ${RandomItemCollectChallenge.playerSkipCount[player]} skips left.",
                 NamedTextColor.WHITE
             )
             return false
