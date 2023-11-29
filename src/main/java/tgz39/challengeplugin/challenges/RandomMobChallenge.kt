@@ -15,7 +15,7 @@ import tgz39.challengeplugin.timer.Timer
 import tgz39.challengeplugin.utils.Challenge
 import java.util.*
 
-object RandomMobChallenge : Challenge {
+object RandomMobChallenge : Challenge() {
 
     // Variables to control the Challenge
     override var isActive = false

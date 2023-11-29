@@ -11,8 +11,7 @@ import tgz39.challengeplugin.Main
 import tgz39.challengeplugin.utils.Challenge
 
 
-object HealthChallenge : Challenge {
-
+object HealthChallenge : Challenge() {
     // Variables to control the Challenge
     override var isActive = false
         set(value) {
@@ -81,5 +80,4 @@ object HealthChallenge : Challenge {
             setPlayerHealth(20.0)
         }
     }
-
 }

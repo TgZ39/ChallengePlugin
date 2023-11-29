@@ -1,8 +1,7 @@
 package tgz39.challengeplugin
 
 import org.bukkit.plugin.java.JavaPlugin
-import tgz39.challengeplugin.challenges.RandomBlockDropChallenge
-import tgz39.challengeplugin.challenges.RandomItemCraftChallenge
+import tgz39.challengeplugin.challenges.*
 import tgz39.challengeplugin.commands.SettingsCommand
 import tgz39.challengeplugin.commands.SkipItemCommand
 import tgz39.challengeplugin.commands.TimerCommand
@@ -23,9 +22,10 @@ class Main : JavaPlugin() {
 
     override fun onEnable() {
 
-        saveDefaultConfig()
-
         logger.info("Loading Plugin...")
+
+        initializeChallenges()
+        saveDefaultConfig()
 
         // register commands
         getCommand("settings")?.setExecutor(SettingsCommand())
@@ -38,7 +38,7 @@ class Main : JavaPlugin() {
         server.pluginManager.registerEvents(DeathLisenter(), this)
         server.pluginManager.registerEvents(EnderDragonDeath(), this)
         server.pluginManager.registerEvents(RandomBlockDropChallenge, this)
-        server.pluginManager.registerEvents(RandomItemCraftChallenge, this)
+        server.pluginManager.registerEvents(RandomItemCollectChallenge, this)
 
         Timer.sendActionBar()
 
@@ -48,5 +48,14 @@ class Main : JavaPlugin() {
         // Plugin shutdown logic
         Timer.isActive = false
         saveDefaultConfig()
+    }
+
+    private fun initializeChallenges() {
+        HealthChallenge
+        LavaChallenge
+        RandomBlockDropChallenge
+        RandomEffectChallenge
+        RandomItemCollectChallenge
+        RandomMobChallenge
     }
 }

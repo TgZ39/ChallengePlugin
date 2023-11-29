@@ -23,7 +23,7 @@ object SettingsGUI : Listener {
         inventory.setItem(2, RandomEffectChallenge.guiItem())
         inventory.setItem(3, HealthChallenge.guiItem())
         inventory.setItem(4, RandomBlockDropChallenge.guiItem())
-        inventory.setItem(5, RandomItemCraftChallenge.guiItem())
+        inventory.setItem(5, RandomItemCollectChallenge.guiItem())
     }
 
     fun openInvetory(player: Player) {
@@ -111,12 +111,12 @@ object SettingsGUI : Listener {
             }
         }
 
-        if (item?.displayName() == RandomItemCraftChallenge.guiItem().displayName()) {
-            if (!RandomItemCraftChallenge.isActive) {
-                RandomItemCraftChallenge.isActive = true
+        if (item?.displayName() == RandomItemCollectChallenge.guiItem().displayName()) {
+            if (!RandomItemCollectChallenge.isActive) {
+                RandomItemCollectChallenge.isActive = true
                 sendChallengeMessage("Random Item Craft Challenge has been enabled.", NamedTextColor.GREEN)
             } else {
-                RandomItemCraftChallenge.isActive = false
+                RandomItemCollectChallenge.isActive = false
                 sendChallengeMessage("Random Item Craft Challenge has been disabled.", NamedTextColor.RED)
             }
         }
