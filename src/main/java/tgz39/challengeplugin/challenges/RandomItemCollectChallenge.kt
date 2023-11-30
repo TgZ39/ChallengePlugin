@@ -16,6 +16,7 @@ import org.bukkit.scheduler.BukkitRunnable
 import tgz39.challengeplugin.Main
 import tgz39.challengeplugin.timer.Timer
 import tgz39.challengeplugin.utils.Challenge
+import tgz39.challengeplugin.utils.ObtainableMaterial
 import tgz39.challengeplugin.utils.sendMessage
 
 object RandomItemCollectChallenge : Challenge(), Listener {
@@ -29,7 +30,7 @@ object RandomItemCollectChallenge : Challenge(), Listener {
 
     var playerItemCount: MutableMap<Player, Int> = mutableMapOf()
 
-    private var itemList: MutableList<Material> = Material.entries.filter { it.isItem }.shuffled().toMutableList()
+    private var itemList: MutableList<Material> = ObtainableMaterial.obtainableMaterials.shuffled().toMutableList()
 
     var playerSkipCount: MutableMap<Player, Int> = mutableMapOf()
 
@@ -168,7 +169,7 @@ object RandomItemCollectChallenge : Challenge(), Listener {
      * Randomizes the itemList, which determines what items the players need to craft
      */
     fun resetItems() {
-        itemList = Material.entries.filter { it.isItem }.shuffled().toMutableList()
+        itemList = ObtainableMaterial.obtainableMaterials.shuffled().toMutableList()
     }
 
     private fun String.formatItemName(): String {
@@ -186,7 +187,7 @@ object RandomItemCollectChallenge : Challenge(), Listener {
         for (player in playerItemCount.entries.sortedByDescending { it.value }.associate { it.key to it.value }) {
             message = message
                 .append(
-                    Component.text("   ${place++}. ${player.key.name}: ${player.value - (3 - playerSkipCount[player.key]!!)}\n")
+                    Component.text("   ${place++}. ${player.key.name}: ${player.value - (maxSkipCount - playerSkipCount[player.key]!!)}\n")
                         .color(NamedTextColor.WHITE)
                         .decoration(TextDecoration.BOLD, false)
                 )

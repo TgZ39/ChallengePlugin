@@ -1,5 +1,6 @@
 package tgz39.challengeplugin
 
+import org.bukkit.Material
 import org.bukkit.plugin.java.JavaPlugin
 import tgz39.challengeplugin.challenges.*
 import tgz39.challengeplugin.commands.SettingsCommand
