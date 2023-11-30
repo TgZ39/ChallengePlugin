@@ -75,7 +75,7 @@ class SettingsCommand : CommandExecutor, TabCompleter {
                             "reset-skips" -> {
 
                                 RandomItemCollectChallenge.resetSkips()
-                                sendMessage("Player Skips have been reset", NamedTextColor.WHITE)
+                                sendMessage("Player Skips have been reset.", NamedTextColor.WHITE)
                             }
 
                             "reset-item-counts" -> {
@@ -396,7 +396,7 @@ class SettingsCommand : CommandExecutor, TabCompleter {
                                     }
 
                                     HealthChallenge.health = args[2].toDouble()
-                                    sendMessage("Health has been set to " + args[2], NamedTextColor.WHITE)
+                                    sendMessage("Health has been set to " + args[2] + ".", NamedTextColor.WHITE)
                                     HealthChallenge.updateHealth()
                                 } else {
 
