@@ -164,7 +164,7 @@ object ObtainableMaterial {
         Material.CHISELED_SANDSTONE,
         Material.CUT_SANDSTONE,
         Material.COBWEB,
-        Material.GRASS,
+        Material.GRASS_BLOCK,
         Material.FERN,
         Material.AZALEA,
         Material.FLOWERING_AZALEA,
