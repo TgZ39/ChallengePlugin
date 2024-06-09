@@ -39,7 +39,7 @@ class SkipItemCommand : CommandExecutor {
             sendMessage(
                 player,
                 "Skip Item",
-                "You skipped your item. You have ${RandomItemCollectChallenge.playerSkipCount[player]} skips left.",
+                "You skipped your item. You have ${RandomItemCollectChallenge.playerSkipCount[player]} skip(s) left.",
                 NamedTextColor.WHITE
             )
             return false

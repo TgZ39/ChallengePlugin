@@ -52,7 +52,7 @@ class SettingsCommand : CommandExecutor, TabCompleter {
                 }
 
                 val player: Player = sender
-                SettingsGUI.openInvetory(player)
+                SettingsGUI.openInventory(player)
 
                 return false
             }

@@ -11,6 +11,11 @@ import org.bukkit.scheduler.BukkitRunnable
 import tgz39.challengeplugin.Main
 import tgz39.challengeplugin.challenges.RandomItemCollectChallenge
 
+enum class TimerMode {
+    UP,
+    DOWN
+}
+
 object Timer {
 
     var isActive = false
@@ -27,7 +32,7 @@ object Timer {
             Main.instance.config.set("timer.save-time-between-sessions", value)
             Main.instance.saveConfig()
         }
-    var mode: Boolean = false // false = countup, true = countdown
+    var mode: TimerMode = TimerMode.UP
         set(value) {
             field = value
             Main.instance.config.set("timer.mode", value)
@@ -100,14 +105,14 @@ object Timer {
                 if (isActive) {
                     ticks++
                     if (ticks >= 20) {
-                        if (!mode) {
+                        if (mode == TimerMode.UP) {
                             time++
                         } else {
                             time--
                         }
                         ticks = 0
                     }
-                    if (time <= 0 && mode) {
+                    if (time <= 0 && mode == TimerMode.DOWN) {
                         isActive = false
                         for (player in Bukkit.getOnlinePlayers()) {
                             player.sendMessage(
@@ -128,7 +133,7 @@ object Timer {
                     }
                 } else { // give player effects if timer is not active
                     for (player in Bukkit.getServer().onlinePlayers) {
-                        player.addPotionEffect(PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 21, 255, true))
+                        player.addPotionEffect(PotionEffect(PotionEffectType.RESISTANCE, 21, 255, true))
                         player.addPotionEffect(PotionEffect(PotionEffectType.SATURATION, 21, 255, true))
                     }
                 }

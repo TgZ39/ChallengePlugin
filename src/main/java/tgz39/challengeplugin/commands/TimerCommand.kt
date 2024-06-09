@@ -12,6 +12,7 @@ import tgz39.challengeplugin.challenges.RandomEffectChallenge
 import tgz39.challengeplugin.challenges.RandomItemCollectChallenge
 import tgz39.challengeplugin.challenges.RandomMobChallenge
 import tgz39.challengeplugin.timer.Timer
+import tgz39.challengeplugin.timer.TimerMode
 
 class TimerCommand : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>?): Boolean {
@@ -96,7 +97,7 @@ class TimerCommand : CommandExecutor, TabCompleter {
                         return false
                     }
                     if (args[1] == "up") {
-                        Timer.mode = false
+                        Timer.mode = TimerMode.UP
                         sender.sendMessage(
                             Component.text("Timer: ").decoration(TextDecoration.BOLD, true).color(NamedTextColor.GOLD)
                                 .append(
@@ -106,7 +107,7 @@ class TimerCommand : CommandExecutor, TabCompleter {
                                 )
                         )
                     } else if (args[1] == "down") {
-                        Timer.mode = true
+                        Timer.mode = TimerMode.DOWN
                         sender.sendMessage(
                             Component.text("Timer: ").decoration(TextDecoration.BOLD, true).color(NamedTextColor.GOLD)
                                 .append(

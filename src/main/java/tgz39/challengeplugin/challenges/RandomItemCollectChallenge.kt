@@ -53,13 +53,13 @@ object RandomItemCollectChallenge : Challenge(), Listener {
     init {
         isActive = Main.instance.config.getBoolean("challenges.random-item-collect-challenge.active", false)
         maxItemCount =
-            Main.instance.config.getInt("challenges.random-item-collect-challenge.max-item-count", Int.MAX_VALUE)
+            Main.instance.config.getInt("challenges.random-item-collect-challenge.max-item-count", 0)
         maxSkipCount = Main.instance.config.getInt("challenges.random-item-collect-challenge.skip-count", 3)
         run()
     }
 
     override fun guiItem(): ItemStack {
-        val item = ItemStack(Material.FIREWORK_ROCKET, 1)
+        val item = ItemStack(Material.FLOWERING_AZALEA, 1)
         val itemMeta = item.itemMeta
         val lore = itemMeta.lore() ?: ArrayList()
 

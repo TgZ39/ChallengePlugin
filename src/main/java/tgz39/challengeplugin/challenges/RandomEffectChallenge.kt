@@ -138,7 +138,7 @@ object RandomEffectChallenge : Challenge() {
 
         val effects: MutableList<PotionEffectType> = PotionEffectType.values().toMutableList()
         effects.remove(PotionEffectType.UNLUCK)
-        effects.remove(PotionEffectType.HARM)
+        effects.remove(PotionEffectType.INSTANT_DAMAGE)
         effects.remove(PotionEffectType.WITHER)
 
         return effects[Random().nextInt(effects.size)]

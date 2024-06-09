@@ -697,7 +697,7 @@ object ObtainableMaterial {
         Material.MANGROVE_BOAT,
         Material.MANGROVE_CHEST_BOAT,
         Material.TURTLE_HELMET,
-        Material.SCUTE,
+        Material.TURTLE_SCUTE,
         Material.FLINT_AND_STEEL,
         Material.APPLE,
         Material.BOW,

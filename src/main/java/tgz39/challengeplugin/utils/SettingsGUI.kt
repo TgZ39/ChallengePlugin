@@ -26,12 +26,12 @@ object SettingsGUI : Listener {
         inventory.setItem(5, RandomItemCollectChallenge.guiItem())
     }
 
-    fun openInvetory(player: Player) {
+    fun openInventory(player: Player) {
         updateInventory()
         player.openInventory(inventory)
     }
 
-    fun openInvetory(player: HumanEntity) {
+    fun openInventory(player: HumanEntity) {
         updateInventory()
         player.openInventory(inventory)
     }
@@ -114,15 +114,15 @@ object SettingsGUI : Listener {
         if (item?.displayName() == RandomItemCollectChallenge.guiItem().displayName()) {
             if (!RandomItemCollectChallenge.isActive) {
                 RandomItemCollectChallenge.isActive = true
-                sendChallengeMessage("Random Item Craft Challenge has been enabled.", NamedTextColor.GREEN)
+                sendChallengeMessage("Random Item Collect Challenge has been enabled.", NamedTextColor.GREEN)
             } else {
                 RandomItemCollectChallenge.isActive = false
-                sendChallengeMessage("Random Item Craft Challenge has been disabled.", NamedTextColor.RED)
+                sendChallengeMessage("Random Item Collect Challenge has been disabled.", NamedTextColor.RED)
             }
         }
 
         event.isCancelled = true
-        openInvetory(player)
+        openInventory(player)
     }
 
     @EventHandler
